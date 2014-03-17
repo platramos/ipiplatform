@@ -45,7 +45,8 @@ When(/^I upload the file to the file upload$/) do
 end
 
 When(/^I add the resource$/) do
-  @add_resource_page.add_resource_links.first.click
+  select("Awesome Resource", :from => "Resource:")
+  @show_existing_resources_page.add_resource_links.click
 end
 
 Then(/^I should not have the option to edit another user's resource$/) do

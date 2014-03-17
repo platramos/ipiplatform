@@ -10,7 +10,7 @@ class EditStepPage < SitePrism::Page
 
   element :name, "#step_name"
   element :save_button, "input[value='Save']"
-  element :add_existing_resource_link, "a.add_existing_resource"
+  element :add_existing_resource_link, "a.add_existing_resources"
 
   elements :show_resource_links, ".show_resource"
 end

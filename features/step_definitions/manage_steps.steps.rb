@@ -29,7 +29,7 @@ When(/^I select the step to delete/) do
 end
 
 When(/^I navigate to the add existing resource page$/) do
-  @add_resource_page = AddResourcePage.new
+  @show_existing_resources_page = ShowExistingResourcesPage.new
   @edit_step_page.add_existing_resource_link.click
 end
 
