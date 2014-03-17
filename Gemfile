@@ -22,6 +22,9 @@ gem 'figaro'
 gem 'shoulda'
 gem "acts_as_list", "~> 0.3.0"
 
+gem 'omniauth'
+gem 'omniauth-saml'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'rspec-mocks'

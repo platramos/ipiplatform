@@ -9,7 +9,8 @@ IpiPlatform::Application.routes.draw do
 
   resources :sessions
   resources :users
-
+  
+  post'auth/saml/callback/', to: 'omniauth#success'
   get 'pages/home'
   get 'pages/publisher'
   get 'pages/value_proposition_categories'
