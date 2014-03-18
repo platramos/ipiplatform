@@ -33,6 +33,7 @@ group :test, :development do
   gem 'selenium-webdriver'
   gem 'poltergeist'
   gem "site_prism", "~> 2.4"
+  gem 'railroady'
 end
 
 group :test do
