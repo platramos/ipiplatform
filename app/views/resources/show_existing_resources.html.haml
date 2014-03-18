@@ -2,7 +2,7 @@
   -@resources.each do |r|
     =check_box_tag "resource_id[]", r.id, false
     =label_tag r.name
-    = hidden_field_tag :step_id,  @step_id
     %br
+  =hidden_field_tag :step_id,  @step_id
   =submit_tag "Submit", id: "add_resource", class: 'btn btn-default'
 
