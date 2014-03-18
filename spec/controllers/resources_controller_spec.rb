@@ -562,16 +562,35 @@ describe ResourcesController do
       controller.stub(:current_user).and_return(@admin_user)
     end
 
+    
     context 'when a resource is selected' do
-      it 'should add reource to a step' do
+      it 'should add resource to a step' do
         resource = FactoryGirl.build(:resource, id: 0)
+        resources = [resource]
         step = FactoryGirl.build(:step, id: 0)
-        Resource.stub(:find).and_return(resource)
+        Resource.stub(:find).and_return(resources)
         Step.stub(:find).and_return(step)
 
         post :add_existing_resources, {step_id: 0, resource_id: [0]}
 
-        resource.steps.first.should eql step
+        resources.first.steps.first.should eql step
+        response.should redirect_to(edit_step_path(0))
+      end
+    end
+
+    context 'when more than one resource is selected' do
+      it 'should add both resources to the step' do
+        resource1 = FactoryGirl.build(:resource, id:0)
+        resource2 = FactoryGirl.build(:resource, id:1)
+        resources = [resource1, resource2]
+        step = FactoryGirl.build(:step, id:0)
+        Resource.stub(:find).and_return(resources)
+        Step.stub(:find).and_return(step)
+
+        post :add_existing_resources, {step_id: 0, resource_id: [0], resource_id: [1]}
+
+        resources.first.steps.first.should eql step
+        resources.second.steps.first.should eql step
         response.should redirect_to(edit_step_path(0))
       end
     end
@@ -586,15 +605,18 @@ describe ResourcesController do
       end
     end
 
-    context 'when a resource already added to the step' do
+    context 'when all resources are already added to the step' do
       it 'should show error message in show existing resources page' do
-        resource = FactoryGirl.build(:resource, id: 0)
-        step = FactoryGirl.build(:step, id: 0)
-        step.resources << resource
+        resource1 = FactoryGirl.build(:resource, id:0)
+        resource2 = FactoryGirl.build(:resource, id:1)
+        resources = [resource1, resource2]
+        step = FactoryGirl.build(:step, id:0)
+        step.resources << resource1
+        step.resources << resource2
+        Resource.stub(:find).and_return(resources)
         Step.stub(:find).and_return(step)
-        Resource.stub(:find).and_return(resource)
 
-        post :add_existing_resources, {step_id: step.id, resource_id: [resource.id]}
+        post :add_existing_resources, {step_id: step.id, resource_id:[0], resource_id:[1]}
 
         response.should redirect_to(show_existing_resources_path(0))
         flash[:error].should include("Resource for step already selected")
