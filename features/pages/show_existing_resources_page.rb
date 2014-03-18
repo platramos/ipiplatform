@@ -1,5 +1,6 @@
 class ShowExistingResourcesPage < SitePrism::Page
   set_url "resources/show_existing_resources{/step_id}"
 
-  element "add_resource_links", "#add_resource"
+  element "checkbox_one", "input[value='1'][type='checkbox']"
+  element "submit_button", "#add_resource"
 end

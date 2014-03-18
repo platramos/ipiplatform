@@ -33,6 +33,11 @@ When(/^I navigate to the add existing resource page$/) do
   @edit_step_page.add_existing_resource_link.click
 end
 
+When(/^I add one resource to that step$/) do
+  @show_existing_resources_page.checkbox_one.set(true)
+  @show_existing_resources_page.submit_button.click
+end
+
 Then(/^the step should no longer be displayed$/) do
   @edit_value_proposition_page.show_step_links.size.should eql 0
 end
@@ -42,5 +47,5 @@ Then(/^I should be redirected to the edit step page$/) do
 end
 
 Then(/^I should see the resource$/) do
-  @edit_step_page.show_step_links.first.text.should == @resource.name
+  @edit_step_page.show_step_links.first.text.should have_text(@resource.name)
 end
