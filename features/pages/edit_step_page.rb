@@ -6,7 +6,7 @@ class EditStepPage < SitePrism::Page
   element "resource_name", "#resource_name"
   elements "resource_names", "a.step_resources"
   elements "resources_to_delete", "a.delete"
-  elements "step_resource", "a.step_resource"
+  elements "step_resources", "a.step_resources"
 
   element :name, "#step_name"
   element :save_button, "input[value='Save']"

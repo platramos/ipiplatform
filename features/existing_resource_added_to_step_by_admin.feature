@@ -7,7 +7,6 @@ Feature: Adding existing resources to steps as an admin
     And a resource exists
     And I am on the edit step page
 
-    @wip
   Scenario:
     When I navigate to the add existing resource page
     And I add one resource to that step

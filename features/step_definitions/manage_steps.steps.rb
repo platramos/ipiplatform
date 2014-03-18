@@ -47,5 +47,5 @@ Then(/^I should be redirected to the edit step page$/) do
 end
 
 Then(/^I should see the resource$/) do
-  @edit_step_page.show_step_links.first.text.should have_text(@resource.name)
+  @edit_step_page.step_resources.first.should have_text(@resource.name)
 end
