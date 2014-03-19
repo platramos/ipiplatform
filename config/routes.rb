@@ -37,7 +37,8 @@ IpiPlatform::Application.routes.draw do
   get 'steps/new/:value_proposition_id', to: 'steps#new', as: :new_step
 
   resources :value_proposition_categories
-  resources :value_propositions
+  resources :value_propositions 
+  resources :journeys
   resources :bookmarks
 
   resources :resources, except: [:new, :create, :edit, :update] do
