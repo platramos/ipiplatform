@@ -49,6 +49,11 @@ Given(/^a resource exists$/) do
   @resource = FactoryGirl.create(:resource)
 end
 
+Given(/^two more resources exist/) do
+  @resource2 = FactoryGirl.create(:resource, name: 'a second resource')
+  @resource3 = FactoryGirl.create(:resource, name: 'a third resource')
+end
+
 Given(/^a resource with a (.*?) value proposition exists$/) do |value_proposition_name|
   @value_proposition = FactoryGirl.create(:value_proposition, name: value_proposition_name)
   @resource = FactoryGirl.create(:resource)

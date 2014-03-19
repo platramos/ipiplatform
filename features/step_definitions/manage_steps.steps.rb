@@ -38,6 +38,12 @@ When(/^I add one resource to that step$/) do
   @show_existing_resources_page.submit_button.click
 end
 
+When(/^I add two resources to that step$/) do
+  @show_existing_resources_page.checkbox_two.set(true)
+  @show_existing_resources_page.checkbox_three.set(true)
+  @show_existing_resources_page.submit_button.click
+end
+
 Then(/^the step should no longer be displayed$/) do
   @edit_value_proposition_page.show_step_links.size.should eql 0
 end
@@ -48,4 +54,9 @@ end
 
 Then(/^I should see the resource$/) do
   @edit_step_page.step_resources.first.should have_text(@resource.name)
+end
+
+Then(/^I should see the two resources$/) do
+  @edit_step_page.step_resources.first.should have_text(@resource2.name)
+  @edit_step_page.step_resources.size.should == 2
 end
