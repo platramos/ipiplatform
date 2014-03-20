@@ -4,4 +4,5 @@ class ShowValuePropositionPage < SitePrism::Page
   elements "steps", ".vp_steps"
 
   elements "resources", ".step_resources"
+  elements "journeys", ".vp_journeys"
 end
