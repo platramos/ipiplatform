@@ -34,12 +34,14 @@ describe JourneysController do
     end
   end
 
-#    describe "with valid params" do
-#      it "assigns a newly created journey as @journey" do
-#        expect{
-#          post :create, {:journey => valid_attributes}
-#        }.to change(Journey, :count).by(1)
-#      end
-#    end
-#  end
+describe "GET new" do
+  it "loads a new journey" do
+    #journey.should_receive(:new)
+    #get :new, { value_proposition_id:0}
+
+    get :new, { value_proposition_id: 0}
+    assigns(:journey).should be_a_new(Journey)
+  end
+
+end
 end

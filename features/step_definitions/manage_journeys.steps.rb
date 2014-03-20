@@ -4,7 +4,6 @@ When(/^I navigate to the create new journey page$/) do
 end
 
 When(/^I create a new journey$/) do
-  @journey = FactoryGirl.create
   @new_journey_page.title_field.set(@journey.title)
   @new_journey_page.submit_button.click
 end

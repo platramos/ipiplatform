@@ -10,7 +10,8 @@ class JourneysController < ApplicationController
   end
 
   def new
-
+    @journey = Journey.new
+    @value_proposition_id = params[:value_proposition_id]
   end
   def journey_params
 
