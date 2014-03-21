@@ -9,7 +9,7 @@ describe JourneysController do
   before do
     Journey.stub(:new).and_return(mock_journey)
     ValueProposition.stub(:find).with(value_proposition_id).and_return(mock_value_proposition)
-    journeys_proxy = mock("association proxy", {"new" => Journey.new})
+    journeys_proxy = double("association proxy", {"new" => Journey.new})
     mock_value_proposition.stub(:journeys).and_return(journeys_proxy)
   end
 
