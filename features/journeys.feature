@@ -5,7 +5,6 @@ Feature: Creating a journey
     And a value proposition exists
     And I go to the edit value proposition page for the value proposition
 
-@wip
   Scenario: Creating a new journey
     When I navigate to the create new journey page
     And I create a new journey

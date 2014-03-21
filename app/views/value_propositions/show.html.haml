@@ -25,6 +25,12 @@
         .step_resources.well.small-well
           %span
             = link_to resource.name, resource_path(resource)
+%p
+  %h3
+    Journeys
+  - @value_proposition.journeys.each do |journey|
+    .vp_journeys
+      = journey.title
 %br
 %br
 .btn-group

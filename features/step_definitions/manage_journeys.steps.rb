@@ -4,14 +4,15 @@ When(/^I navigate to the create new journey page$/) do
 end
 
 When(/^I create a new journey$/) do
-  @new_journey_page.title_field.set(@journey.title)
+  @new_journey_page.title_field.set("jTitle")
   @new_journey_page.submit_button.click
 end
 
 Then(/^I should be redirected to the value proposition page$/) do
+  @show_value_proposition_page = ShowValuePropositionPage.new
   @show_value_proposition_page.should be_displayed
 end
 
 Then(/^I should see the new journey$/) do
-  @show_value_proposition_page.journeys.last.should have_text(@journey.title)
+  @show_value_proposition_page.journeys.last.should have_text("jTitle")
 end

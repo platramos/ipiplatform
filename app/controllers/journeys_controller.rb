@@ -1,9 +1,11 @@
 class JourneysController < ApplicationController
+  before_filter :load_value_proposition
+
   def create
-    @journey = Journey.new(journey_params)
+    @journey = @value_proposition.journeys.new(journey_params)
 
     if @journey.save
-      redirect_to root_path
+      redirect_to value_proposition_path(params[:value_proposition_id])
     else
        render action: 'new'
     end
@@ -17,4 +19,8 @@ class JourneysController < ApplicationController
   def journey_params
     params.require(:journey).permit(:title, :value_proposition_id)
   end
+  def load_value_proposition
+    @value_proposition = ValueProposition.find(params[:value_proposition_id])
+  end
+
 end

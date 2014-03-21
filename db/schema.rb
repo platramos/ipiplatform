@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140319202330) do
+ActiveRecord::Schema.define(version: 20140321161545) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id"
@@ -32,7 +32,10 @@ ActiveRecord::Schema.define(version: 20140319202330) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "title"
+    t.integer  "value_proposition_id"
   end
+
+  add_index "journeys", ["value_proposition_id"], name: "index_journeys_on_value_proposition_id"
 
   create_table "resource_formats", force: true do |t|
     t.integer  "format_id"

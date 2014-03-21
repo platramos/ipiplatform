@@ -24,6 +24,7 @@ gem "acts_as_list", "~> 0.3.0"
 
 gem 'omniauth'
 gem 'omniauth-saml'
+gem 'byebug'
 
 group :test, :development do
   gem 'rspec-rails'
