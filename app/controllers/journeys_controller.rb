@@ -13,8 +13,8 @@ class JourneysController < ApplicationController
     @journey = Journey.new
     @value_proposition_id = params[:value_proposition_id]
   end
-  def journey_params
 
+  def journey_params
     params.require(:journey).permit(:title, :value_proposition_id)
   end
 end
