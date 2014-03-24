@@ -43,8 +43,7 @@ describe JourneysController do
 
   describe "GET new" do
     before do
-      journeys_proxy = double("association proxy", {"new" => Journey.new})
-      mock_value_proposition.stub(:journeys).and_return(journeys_proxy)
+      mock_value_proposition.stub_chain(:journeys, :new).and_return(double(Journey.new))
     end
     it "loads a new journey" do
       Journey.should_receive(:new)

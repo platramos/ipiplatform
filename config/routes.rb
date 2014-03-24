@@ -40,6 +40,9 @@ IpiPlatform::Application.routes.draw do
   resources :value_propositions do
     resources :journeys
   end
+  resources :journeys do
+    resources :steps
+  end
   resources :bookmarks
 
   resources :resources, except: [:new, :create, :edit, :update] do

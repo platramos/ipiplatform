@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140321161545) do
+ActiveRecord::Schema.define(version: 20140324195157) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id"
@@ -74,7 +74,10 @@ ActiveRecord::Schema.define(version: 20140321161545) do
     t.datetime "updated_at"
     t.integer  "value_proposition_id"
     t.integer  "position"
+    t.integer  "journey_id"
   end
+
+  add_index "steps", ["journey_id"], name: "index_steps_on_journey_id"
 
   create_table "suggestions", force: true do |t|
     t.string   "author"

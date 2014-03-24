@@ -34,6 +34,10 @@ describe StepsController do
     end
   end
 
+  describe "GET new v2" do
+
+  end
+
   describe "GET edit" do
     it "assigns the requested step as @step" do
       step = Step.create! valid_attributes
