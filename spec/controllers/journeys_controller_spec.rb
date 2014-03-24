@@ -42,9 +42,6 @@ describe JourneysController do
   end
 
   describe "GET new" do
-    before do
-      mock_value_proposition.stub_chain(:journeys, :new).and_return(double(Journey.new))
-    end
     it "loads a new journey" do
       Journey.should_receive(:new)
       get :new, { value_proposition_id: value_proposition_id}
