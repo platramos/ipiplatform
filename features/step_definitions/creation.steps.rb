@@ -32,6 +32,10 @@ Given(/^a value proposition exists$/) do
   @value_proposition = FactoryGirl.create(:value_proposition)
 end
 
+Given(/^a journey exists$/) do
+  @journey = FactoryGirl.create(:journey, value_proposition_id: @value_proposition.id)
+end
+
 Given(/^a step exists$/) do
   @step = FactoryGirl.create(:step)
 end

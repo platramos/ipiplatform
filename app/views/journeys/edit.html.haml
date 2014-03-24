@@ -1,0 +1,5 @@
+%h1 Edit Journey
+
+=form_for(@journey, url: value_proposition_journey_path(@journey.value_proposition_id, @journey.id)) do |form|
+  = form.text_field :title, placeholder: 'Title', id:'journey_title'
+  = form.submit 'Save', class: "btn btn-default", id: 'edit_journey'

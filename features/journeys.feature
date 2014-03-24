@@ -10,3 +10,5 @@ Feature: Creating a journey
     And I create a new journey
     Then I should be redirected to the value proposition page
     And I should see the new journey
+
+

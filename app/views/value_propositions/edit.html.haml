@@ -14,6 +14,8 @@
             = link_to 'Edit', edit_step_path(step), class: "small-link edit"
             \|
             = link_to 'Delete', step, method: :delete, data: { confirm: 'Are you sure?' }, class: "small-link delete"
+    - @value_proposition.journeys.each do |journey|
+      = link_to 'Edit Journey', edit_value_proposition_journey_path(value_proposition_id:@value_proposition.id, id:journey.id), class:"btn btn-default edit_journey"
   .col-md-2
     = link_to 'Add New Journey', new_value_proposition_journey_path(value_proposition_id:@value_proposition.id), class:"btn btn-default", id:"new_journey"
     = link_to 'Add New Step', new_step_path(@value_proposition), id: "add_step", class: "btn btn-default"
