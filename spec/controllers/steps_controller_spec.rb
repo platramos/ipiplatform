@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe StepsController do
 
- let(:valid_attributes) { { name: "MyString" } }
+ let(:valid_attributes) { { "name" => "MyString" } }
  let(:valid_attributes_with_vp_id) { { name: "MyString", value_proposition_id: 0 } }
+ let(:journey_id) { "2" }
 
- let(:mock_step) { mock_model(Step, id:"0", name: "stepName", journey_id: "0")}
+ let(:mock_step) { mock_model(Step, id:"0", name: "stepName", journey_id: journey_id)}
  let(:mock_journey) { mock_model(Journey, title: "JourneyTitle", value_proposition_id: "0")}
  let(:valid_session) { {} }
 
@@ -25,33 +26,20 @@ describe StepsController do
     end
   end
 
-  describe "GET new" do
-    it "assigns a new step as @step" do
-      pending("")
-      get :new, {value_proposition_id: 0}, valid_session
-      assigns(:step).should be_a_new(Step)
-    end
-    it "assigns the value proposition id of the step as @value_proposition_id" do
-      pending("")
-      get :new, {value_proposition_id: 0}, valid_session
-      assigns(:value_proposition_id).should == "0"
-    end
-  end
-
   describe "GET new v2" do
     it "loads a new step" do
       Step.should_receive(:new)
-      get :new, {journey_id: "0"}
+      get :new, {journey_id: journey_id}
     end
 
     it "assigns @step to new step" do
-      get :new, { journey_id: "0"}
-      assigns(:step).should eq mock_step
+      get :new, { journey_id: journey_id}
+      assigns(:step).should be_a_new(Step)
     end
 
     it "loads the journey id" do
-      get :new, { journey_id: "0"}
-      assigns(:journey_id).should eq "0"
+      get :new, { journey_id: journey_id}
+      assigns(:journey_id).should eq journey_id
     end
   end
 
@@ -92,43 +80,29 @@ describe StepsController do
     end
   end
 
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Step" do
-        expect {
-          post :create, {:step => valid_attributes}, valid_session
-        }.to change(Step, :count).by(1)
-      end
+  describe "POST create v2" do
+    before do
+      mock_journey.stub_chain(:steps, :new).with(valid_attributes).and_return(mock_step)
+      Journey.stub(:find).with(journey_id).and_return(mock_journey)
+    end
 
-      it "assigns a newly created step as @step" do
-        post :create, {:step => valid_attributes}, valid_session
-        assigns(:step).should be_a(Step)
-        assigns(:step).should be_persisted
-      end
+    it "calls save on the step" do
+      mock_step.should_receive(:save)
+      post :create, { journey_id: journey_id, step: valid_attributes}
+    end
 
-      it "redirects to edit value proposition" do
-        pending("old step test")
-        mock_step = double(Step)
+    describe "successful step save" do
+      it "should redirect to edit journey page" do
         mock_step.stub(:save).and_return(true)
-        Step.stub(:new).and_return(mock_step)
-
-        post :create, {:step => valid_attributes_with_vp_id}, valid_session
-        response.should redirect_to(edit_value_proposition_path(valid_attributes_with_vp_id[:value_proposition_id]))
+        post :create, {journey_id: journey_id, step: valid_attributes}
+        response.should redirect_to(edit_value_proposition_journey_path("0",journey_id))
       end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved step as @step" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Step.any_instance.stub(:save).and_return(false)
-        post :create, {:step => { "name" => "invalid value" }}, valid_session
-        assigns(:step).should be_a_new(Step)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Step.any_instance.stub(:save).and_return(false)
-        post :create, {:step => { "name" => "invalid value" }}, valid_session
+    describe "failed step save" do
+      it "should render new step page" do
+        mock_step.stub(:save).and_return(false)
+        post :create, {journey_id: journey_id, step: valid_attributes}
         response.should render_template("new")
       end
     end
@@ -214,6 +188,7 @@ describe StepsController do
 
   describe 'GET edit' do
     it 'assigns resources' do
+      pending("")
       step = FactoryGirl.create(:step)
       resource1 = FactoryGirl.create(:resource, name: "Resource1")
       resource2 = FactoryGirl.create(:resource, name: "Resource2")

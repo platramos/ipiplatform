@@ -4,18 +4,16 @@ describe JourneysController do
   let(:mock_journey) { mock_model(Journey, id: "0", title: "JourneyTitle", value_proposition_id: "0") }
   let(:mock_value_proposition) { mock_model(ValueProposition, name: "VpName", description: "description", value_proposition_category: "category")}
   let(:value_proposition_id) { "0" }
-  let(:valid_attributes) { { title: "JourneyTitle", value_proposition_id: value_proposition_id } }
+  let(:valid_attributes) { { "title"=> "JourneyTitle", "value_proposition_id"=> value_proposition_id } }
 
   before do
     @admin_user = FactoryGirl.create(:user, :admin)
-    Journey.stub(:new).and_return(mock_journey)
     ValueProposition.stub(:find).with(value_proposition_id).and_return(mock_value_proposition)
   end
 
   describe "POST create" do
     before do
-      journeys_proxy = double("association proxy", {"new" => Journey.new})
-      mock_value_proposition.stub(:journeys).and_return(journeys_proxy)
+      mock_value_proposition.stub_chain(:journeys, :new).with(valid_attributes).and_return(mock_journey)
     end
 
     it "calls save on the journey" do
@@ -24,7 +22,7 @@ describe JourneysController do
                       journey: valid_attributes }
     end
     describe "successful journey save" do
-      it "should redirect to root path" do
+      it "should redirect to value proposition page" do
         mock_journey.stub(:save).and_return(true)
         post :create, { value_proposition_id: value_proposition_id,
                         journey: valid_attributes}
@@ -49,7 +47,7 @@ describe JourneysController do
 
     it "assigns @journey to new journey" do
       get :new, { value_proposition_id: value_proposition_id}
-      assigns(:journey).should eq mock_journey
+      assigns(:journey).should be_a_new(Journey)
     end
 
     it "loads the value proposition id" do
@@ -70,9 +68,6 @@ describe JourneysController do
   describe 'PUT update' do
     context 'as an admin user' do
       before do
-        #controller.stub(:current_user).and_return(@admin_user)
-        #controller.stub_chain(:current_user, :present).and_return(true)
-        #controller.stub_chain(:current_user, :can_edit_and_delete_resource).with(anything()).and_return(true)
         journey_id_from_param = "0"
         mock_value_proposition.stub_chain(:journeys, :find).with(journey_id_from_param).and_return(mock_journey)
       end

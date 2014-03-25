@@ -1,5 +1,6 @@
 class StepsController < ApplicationController
   before_action :set_step, only: [:show, :edit, :update, :destroy]
+  before_filter :load_journey, only: [:create]
 
   def index
     @steps = Step.all
@@ -11,6 +12,7 @@ class StepsController < ApplicationController
   def new
     @step = Step.new
     @value_proposition_id = params[:value_proposition_id]
+    @journey_id = params[:journey_id]
   end
 
   def new_resource
@@ -28,10 +30,9 @@ class StepsController < ApplicationController
   end
 
   def create
-    @step = Step.new(step_params)
-
+    @step = @journey.steps.new(step_params)
     if @step.save
-      redirect_to edit_value_proposition_url(step_params[:value_proposition_id]), notice: 'Step was successfully created.'
+      redirect_to edit_value_proposition_journey_path(@journey.value_proposition_id, params[:journey_id]), notice: 'Step was successfully created.'
     else
       render action: 'new'
     end
@@ -75,6 +76,10 @@ class StepsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def step_params
-      params.require(:step).permit(:name, :description, :value_proposition_id)
+      params.require(:step).permit(:name, :description, :journey_id)
+    end
+
+    def load_journey
+      @journey = Journey.find(params[:journey_id])
     end
 end
