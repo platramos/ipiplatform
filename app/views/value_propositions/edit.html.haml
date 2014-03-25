@@ -10,14 +10,15 @@
       - journey.steps.each do |step|
         .step.col-md-3{:style => 'margin-bottom: 10px;'}
           .panel.panel-default.well.clearfix{:style => 'padding: 2px;'}
-            = link_to step.name, step_path(step), class: "show-step", value: step.name
+            = link_to step.name, journey_steps_path(journey_id: journey.id), class: "show-step", value: step.name
             .clearfix
             .pull-right
-              = link_to 'Edit', edit_step_path(step), class: "small-link edit"
+              = link_to 'Edit', edit_journey_step_path(journey_id: journey.id, id: step.id), class: "small-link edit"
               \|
-              = link_to 'Delete', step, method: :delete, data: { confirm: 'Are you sure?' }, class: "small-link delete"
+              = link_to 'Delete', journey_step_path(journey_id: journey.id, id: step.id) , method: :delete, data: { confirm: 'Are you sure?' }, class: "small-link delete"
     = link_to 'Edit Journey', edit_value_proposition_journey_path(value_proposition_id:@value_proposition.id, id:journey.id), class:"btn btn-default edit_journey"
-    = link_to 'Add Step', new_journey_step_path(journey_id:journey.id), class:"btn btn-default"
+    = link_to 'Add Step', new_journey_step_path(journey_id:journey.id), class: "btn btn-default"
+    = link_to 'Reorder Steps', reorder_journey_steps_path(journey_id: journey.id), class: "btn btn-default"
 %br
 = link_to 'Add New Journey', new_value_proposition_journey_path(value_proposition_id:@value_proposition.id), class:"btn btn-default", id:"new_journey"
 = link_to 'Show', @value_proposition

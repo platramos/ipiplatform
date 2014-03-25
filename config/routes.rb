@@ -1,15 +1,15 @@
 IpiPlatform::Application.routes.draw do
 
-  resources :steps, except: :new do
-    collection do
-      get :reorder
-      post :sort
-    end
-  end
+#resources :steps, except: :new do
+#  collection do
+#    get :reorder
+#    post :sort
+#  end
+#end
 
   resources :sessions
   resources :users
-  
+
   post'auth/saml/callback/', to: 'omniauth#success'
   get 'pages/home'
   get 'pages/publisher'
@@ -41,7 +41,12 @@ IpiPlatform::Application.routes.draw do
     resources :journeys
   end
   resources :journeys do
-    resources :steps
+    resources :steps do
+      collection do
+        get :reorder
+        post :sort
+      end
+    end
   end
   resources :bookmarks
 
