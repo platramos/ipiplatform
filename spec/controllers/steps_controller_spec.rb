@@ -44,40 +44,26 @@ describe StepsController do
   end
 
   describe "GET edit" do
+    let(:mock_resources) { mock_model(Resource) }
+    before do
+      mock_journey.stub_chain(:steps, :find).with(mock_step.id).and_return(mock_step)
+      Journey.stub(:find).with(journey_id).and_return(mock_journey)
+      mock_step.stub_chain(:resources,:order).with(anything()).and_return(mock_resources)
+    end
     it "assigns the requested step as @step" do
-      step = Step.create! valid_attributes
-      get :edit, {:id => step.to_param}, valid_session
-      assigns(:step).should eq(step)
+      get :edit, { journey_id: journey_id, id: mock_step.id}, valid_session
+      assigns(:step).should eq(mock_step)
     end
 
     it 'should assign resources ordered by position' do
       ApplicationController.any_instance.stub(:redirect_if_not_signed_in).and_return(nil)
       ApplicationController.any_instance.stub(:redirect_if_unauthorized).and_return(nil)
 
-      mock_resources = [double(Resource)]
-      mock_resources.should_receive(:order).with(:position).and_return(mock_resources)
-      mock_step = double(Step)
-      mock_step.stub(:resources).and_return(mock_resources)
-      mock_step.stub(:value_proposition_id)
-      Step.stub(:find).and_return(mock_step)
+      get :edit, {journey_id: journey_id, :id => mock_step.id }
 
-      get :edit, { :id => 0 }
-
-      assigns(:resources).should eql mock_resources
+      assigns(:resources).should eq(mock_resources)
     end
 
-    it "assigns the value proposition id of the step as @value_proposition_id" do
-      mock_resources = [double(Resource)]
-      mock_resources.should_receive(:order).with(:position).and_return(mock_resources)
-      mock_step = double(Step)
-      mock_step.stub(:resources).and_return(mock_resources)
-      mock_step.stub(:value_proposition_id).and_return(1)
-      Step.stub(:find).and_return(mock_step)
-
-      get :edit, {id: 0}, valid_session
-
-      assigns(:value_proposition_id).should == 1
-    end
   end
 
   describe "POST create v2" do
@@ -95,7 +81,7 @@ describe StepsController do
       it "should redirect to edit journey page" do
         mock_step.stub(:save).and_return(true)
         post :create, {journey_id: journey_id, step: valid_attributes}
-        response.should redirect_to(edit_value_proposition_journey_path("0",journey_id))
+        response.should redirect_to(edit_value_proposition_path("0"))
       end
     end
 

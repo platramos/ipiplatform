@@ -1,6 +1,6 @@
 class StepsController < ApplicationController
-  before_action :set_step, only: [:show, :edit, :update, :destroy]
-  before_filter :load_journey, only: [:create]
+  before_action :load_journey, only: [:create, :edit]
+  before_action :load_step, only: [:show, :edit, :update, :destroy]
 
   def index
     @steps = Step.all
@@ -25,14 +25,13 @@ class StepsController < ApplicationController
   end
 
   def edit
-    @resources = Step.find(params[:id]).resources.order(:position)
-    @value_proposition_id = @step.value_proposition_id
+    @resources = @step.resources.order(:position)
   end
 
   def create
     @step = @journey.steps.new(step_params)
     if @step.save
-      redirect_to edit_value_proposition_journey_path(@journey.value_proposition_id, params[:journey_id]), notice: 'Step was successfully created.'
+      redirect_to edit_value_proposition_path(@journey.value_proposition_id), notice: 'Step was successfully created.'
     else
       render action: 'new'
     end
@@ -70,8 +69,8 @@ class StepsController < ApplicationController
   private
 
     # Use callbacks to share common setup or constraints between actions.
-    def set_step
-      @step = Step.find(params[:id])
+    def load_step
+     @step = @journey.steps.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
