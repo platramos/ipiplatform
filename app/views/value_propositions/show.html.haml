@@ -31,6 +31,10 @@
   - @value_proposition.journeys.each do |journey|
     .vp_journeys
       = journey.title
+      - journey.steps.each do |step|
+        .col
+          .vp_steps.well
+            =step.name
 %br
 %br
 .btn-group
