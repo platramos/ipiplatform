@@ -12,8 +12,7 @@ blue_steps = [['Inception', new_resource('Awesome Resource')]]
 blue_proposition = [
   'Traditional TW IT Delivery',
   'This client has ambitious ideas and will rely on us to deliver high quality, technically advanced systems on time and in budget.  Our top deliverables are technical prowess, agile leadership, and continuous quality.',
-  'visionary.png',
-  blue_steps]
+  'visionary.png']
 
 green_proposition = [
   'Fast IT Delivery',
@@ -26,22 +25,23 @@ yellow_proposition = [
   'analyst.png']
 
 orange_steps = [['Sales', [new_resource('How to Create a Successful Story')]],['Proposal',[new_resource('Powerfull Presentation'),new_resource('5 Ways to Influence Clients')]],
-                 ['Visioning Workshop'], ['Research Sprint'], ['MVP Workshop'], ['Build/Refine'], ['Pivots'], ['Hand-off',[new_resource('Entity Relationship Diagram')]]
-                ]
+                ['Visioning Workshop'], ['Research Sprint'], ['MVP Workshop'], ['Build/Refine'], ['Pivots'], ['Hand-off',[new_resource('Entity Relationship Diagram')]]
+]
 
+orange_journeys = [['Orange Journey', orange_steps]]
 orange_proposition = [
   'New Product  Innovation',
   'This client is likely at the beginning of an exciting new business venture; their problem is radical re-invention of unproven game changing markets.  Our top deliverables are disruptive vision, lean product learning, and iterative pivots.',
   'enterpriser.png',
-  orange_steps
+  orange_journeys
 ]
 
 
-
-red_proposition = [
+teal_journeys = [['Default Journey', blue_steps], ['Journey 2', orange_steps]]
+teal_proposition = [
   'Enterprise Innovation',
   'This client is looking for big picture solutions and a full lifecycle execution. Our top deliverables are program vision, integrated solutions, and service design.',
-  'anchor.png']
+  'anchor.png', teal_journeys]
 
 copper_proposition = [
   'Agile IT',
@@ -62,20 +62,24 @@ gold_proposition = [
 
 value_proposition_categories = [
   ['Technical Value Propositions', [blue_proposition, green_proposition], 'Technical Value Proposition Categories Description'],
-  ['Business Innovation Value Propositions', [yellow_proposition, orange_proposition, red_proposition], 'Business Innovation Value Proposition Categories Description'],
+  ['Business Innovation Value Propositions', [yellow_proposition, orange_proposition, teal_proposition], 'Business Innovation Value Proposition Categories Description'],
   ['Process Innovation Propositions', [copper_proposition, silver_proposition, gold_proposition], 'Process Innovation Propositions Description']
 ]
 
+
 value_proposition_categories.each do |name, value_proposition, value_proposition_category_description|
   value_proposition_category = ValuePropositionCategory.find_or_create_by(name: name, description: value_proposition_category_description)
-  value_proposition.each do |vp_name, value_proposition_description, image, steps|
+  value_proposition.each do |vp_name, value_proposition_description, image, journeys|
     value_proposition = value_proposition_category.value_propositions.find_or_create_by_name(name: vp_name, description: value_proposition_description, default_image: image)
+    Array(journeys).each do |title, steps|
+      journey = Journey.find_or_create_by(title: title, value_proposition_id: value_proposition.id)
       Array(steps).each do |step_name, resources|
-        created_step = Step.find_or_create_by(name: step_name, value_proposition_id: value_proposition.id)
+        created_step = Step.find_or_create_by(name: step_name, journey_id: journey.id)
         Array(resources).each do |resource|
           resource.steps << created_step
           resource.save
         end
       end
+    end
   end
 end

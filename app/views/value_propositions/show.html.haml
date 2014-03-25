@@ -16,25 +16,20 @@
 %hr
 %p
   %h3
-    Journey
-  - @steps.each do |step|
-    .col
-      .vp_steps.well
-        = step.name
-      - step.resources.each do |resource|
-        .step_resources.well.small-well
-          %span
-            = link_to resource.name, resource_path(resource)
-%p
-  %h3
     Journeys
   - @value_proposition.journeys.each do |journey|
     .vp_journeys
-      = journey.title
+      %h4
+        = journey.title
+      %br
       - journey.steps.each do |step|
         .col
           .vp_steps.well
             =step.name
+          - step.resources.each do |resource|
+            .step_resources.well.small-well
+              %span
+                = link_to resource.name, resource_path(resource)
 %br
 %br
 .btn-group
