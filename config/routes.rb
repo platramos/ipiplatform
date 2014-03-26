@@ -1,11 +1,11 @@
 IpiPlatform::Application.routes.draw do
 
-#resources :steps, except: :new do
-#  collection do
-#    get :reorder
-#    post :sort
-#  end
-#end
+resources :steps, except: :new do
+  collection do
+    get :reorder
+    post :sort
+  end
+end
 
   resources :sessions
   resources :users
@@ -42,10 +42,6 @@ IpiPlatform::Application.routes.draw do
   end
   resources :journeys do
     resources :steps do
-      collection do
-        get :reorder
-        post :sort
-      end
     end
   end
   resources :bookmarks

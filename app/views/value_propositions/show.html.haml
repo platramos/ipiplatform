@@ -22,7 +22,7 @@
       %h4
         = journey.title
       %br
-      - journey.steps.each do |step|
+      - journey.steps.order(:position).each do |step|
         .col
           .vp_steps.well
             =step.name

@@ -43,7 +43,7 @@ describe StepsController do
     end
   end
 
-  describe "GET edit" do
+  describe "GET edit v2" do
     let(:mock_resources) { mock_model(Resource) }
     before do
       mock_journey.stub_chain(:steps, :find).with(mock_step.id).and_return(mock_step)
@@ -188,25 +188,23 @@ describe StepsController do
   end
 
   describe 'GET reorder' do
+    let(:mock_steps) {[mock_step]}
     before :each do
-      @mock_value_proposition = double(:value_proposition)
-      ValueProposition.stub(:find).and_return(@mock_value_proposition)
-      @mock_steps = [double(:step)]
-      @mock_value_proposition.stub(:steps).and_return(@mock_steps)
-    end
-
-    it "assigns the value proposition id as @value_proposition_id" do
-      @mock_steps.stub(:order)
-      get :reorder, {value_proposition_id: 0}
-      assigns(:value_proposition_id).should == "0"
+      Journey.stub(:find).with(journey_id).and_return(mock_journey)
+      mock_journey.stub(:steps).and_return(mock_steps)
+      mock_steps.should_receive(:order).with(:position).and_return(mock_steps)
     end
 
     it 'should assign steps ordered by position' do
-      @mock_steps.should_receive(:order).with(:position).and_return(@mock_steps)
+      get :reorder, {journey_id: journey_id}
 
-      get :reorder, {value_proposition_id: 0}
+      assigns(:steps).should eql mock_steps
+    end
+    it 'should assign @value_proposition_id to value proposition id' do
+      mock_journey.should_receive(:value_proposition_id).and_return("4")
+      get :reorder, {journey_id: journey_id}
+      assigns(:value_proposition_id).should eql "4"
 
-      assigns(:steps).should eql @mock_steps
     end
   end
 

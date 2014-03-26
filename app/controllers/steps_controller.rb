@@ -1,5 +1,5 @@
 class StepsController < ApplicationController
-  before_action :load_journey, only: [:create, :edit]
+  before_action :load_journey, only: [:create, :edit, :reorder]
   before_action :load_step, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -52,9 +52,8 @@ class StepsController < ApplicationController
   end
 
   def reorder
-    params.require(:value_proposition_id)
-    @steps = ValueProposition.find(params[:value_proposition_id]).steps.order(:position)
-    @value_proposition_id = params[:value_proposition_id]
+    @steps = @journey.steps.order(:position)
+    @value_proposition_id = @journey.value_proposition_id
   end
 
   def sort
