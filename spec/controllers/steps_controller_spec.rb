@@ -20,9 +20,10 @@ describe StepsController do
 
   describe "GET show" do
     it "assigns the requested step as @step" do
-      step = Step.create! valid_attributes
-      get :show, {:id => step.to_param}, valid_session
-      assigns(:step).should eq(step)
+      mock_journey.stub_chain(:steps, :find).with(mock_step.id).and_return(mock_step)
+      Journey.stub(:find).with(journey_id).and_return(mock_journey)
+      get :show, {:journey_id => journey_id, :id => mock_step.id}, valid_session
+      assigns(:step).should eq(mock_step)
     end
   end
 
@@ -50,6 +51,7 @@ describe StepsController do
       Journey.stub(:find).with(journey_id).and_return(mock_journey)
       mock_step.stub_chain(:resources,:order).with(anything()).and_return(mock_resources)
     end
+
     it "assigns the requested step as @step" do
       get :edit, { journey_id: journey_id, id: mock_step.id}, valid_session
       assigns(:step).should eq(mock_step)
@@ -60,10 +62,8 @@ describe StepsController do
       ApplicationController.any_instance.stub(:redirect_if_unauthorized).and_return(nil)
 
       get :edit, {journey_id: journey_id, :id => mock_step.id }
-
       assigns(:resources).should eq(mock_resources)
     end
-
   end
 
   describe "POST create v2" do
@@ -94,96 +94,73 @@ describe StepsController do
     end
   end
 
-  describe "PUT update" do
+  describe "PUT update v2" do
+      before do
+        Journey.stub(:find).with(journey_id).and_return(mock_journey)
+        mock_journey.stub_chain(:steps, :find).with(mock_step.id).and_return(mock_step)
+      end
     describe "with valid params" do
       it "updates the requested step" do
-        step = Step.create! valid_attributes
-        # Assuming there are no other steps in the database, this
-        # specifies that the Step created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Step.any_instance.should_receive(:update).with({ "name" => "MyString" })
-        put :update, {:id => step.to_param, :step => { "name" => "MyString" }}, valid_session
+        mock_step.stub(:update).and_return(true)
+        mock_step.should_receive(:update).with({ "name" => "MyString" })
+        put :update, {:journey_id => journey_id, :id => mock_step.id, :step => { "name" => "MyString" }}, valid_session
       end
 
       it "assigns the requested step as @step" do
-        step = Step.create! valid_attributes
-
-        put :update, {:id => step.to_param, :step => valid_attributes}, valid_session
-        assigns(:step).should eq(step)
-      end
-
-      it "assigns resources for invalid parms" do
-        step = Step.create! valid_attributes
-        resource1 = FactoryGirl.create(:resource, name: "Resource1")
-        step.resources= [resource1]
-        step.save
-
-        put :update, {:id => step.to_param, :step => { "name" => ""}}, valid_session
-        assigns(:step).should eq(step)
-        assigns(:resources).should =~ [resource1]
-
-      end
-
-      it "redirects to edit value proposition" do
-        pending("")
-        mock_step = double(Step)
         mock_step.stub(:update).and_return(true)
-        Step.stub(:find).and_return(mock_step)
+        mock_step.should_receive(:update).with({ "name" => "MyString" })
+        put :update, {:journey_id => journey_id, :id => mock_step.id, :step => { "name" => "MyString" }}, valid_session
+        assigns(:step).should eq(mock_step)
+      end
 
-        put :update, {:id => 0, :step => valid_attributes_with_vp_id}, valid_session
-        response.should redirect_to(edit_value_proposition_path(valid_attributes_with_vp_id[:value_proposition_id]))
+
+      it "redirects to edit value proposition on successful update" do
+        mock_step.stub(:update).and_return(true)
+
+        put :update, {:journey_id => journey_id, :id => 0, :step => { "name" => ""}}, valid_session
+        response.should redirect_to(edit_value_proposition_path(mock_journey.value_proposition_id))
       end
     end
 
     describe "with invalid params" do
+      let(:mock_resource) { mock_model(Resource) }
+      before do
+        mock_step.stub(:update).and_return(false)
+        mock_step.stub(:resources).and_return([mock_resource])
+      end
+
+      it "assigns resources for invalid params" do
+        put :update, {:journey_id => journey_id, :id => mock_step.id, :step => { "name" => ""}}, valid_session
+        assigns(:resources).should  eq([mock_resource])
+      end
+
       it "assigns the step as @step" do
-        step = Step.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Step.any_instance.stub(:save).and_return(false)
-        put :update, {:id => step.to_param, :step => { "name" => "invalid value" }}, valid_session
-        assigns(:step).should eq(step)
+        put :update, {:journey_id => journey_id, :id => mock_step.id, :step => { "name" => "invalid value" }}, valid_session
+        assigns(:step).should eq(mock_step)
       end
 
       it "re-renders the 'edit' template" do
-        step = Step.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Step.any_instance.stub(:save).and_return(false)
-        put :update, {:id => step.to_param, :step => { "name" => "invalid value" }}, valid_session
+        put :update, {:journey_id => journey_id, :id => mock_step.id, :step => { "name" => "invalid value" }}, valid_session
         response.should render_template("edit")
       end
     end
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested step" do
-      step = Step.create! valid_attributes
-      expect {
-        delete :destroy, {:id => step.to_param}, valid_session
-      }.to change(Step, :count).by(-1)
+    before do
+      Journey.stub(:find).with(journey_id).and_return(mock_journey)
+      mock_journey.stub_chain(:steps, :find).with(mock_step.id).and_return(mock_step)
+    end
+
+    it "should call destroy on step" do
+      mock_step.should_receive(:destroy)
+      delete :destroy, {:journey_id => journey_id, :id => mock_step.id}, valid_session
     end
 
     it "redirects to edit value proposition" do
-      mock_step = stub_model(Step, value_proposition_id: 1)
       mock_step.stub(:destroy)
-      Step.stub(:find).and_return(mock_step)
-      delete :destroy, {:id => 0}, valid_session
-      response.should redirect_to(edit_value_proposition_path(mock_step.value_proposition_id))
-    end
-  end
-
-  describe 'GET edit' do
-    it 'assigns resources' do
-      pending("")
-      step = FactoryGirl.create(:step)
-      resource1 = FactoryGirl.create(:resource, name: "Resource1")
-      resource2 = FactoryGirl.create(:resource, name: "Resource2")
-      step.resources = [resource1, resource2]
-      step.save
-
-      get :edit, {id: step.id}
-
-      assigns(:resources).should =~([resource1, resource2])
+      delete :destroy, {:journey_id => journey_id, :id => 0}, valid_session
+      response.should redirect_to(edit_value_proposition_path(mock_journey.value_proposition_id))
     end
   end
 

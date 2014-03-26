@@ -15,7 +15,7 @@
             .pull-right
               = link_to 'Edit', edit_journey_step_path(journey_id: journey.id, id: step.id), class: "small-link edit"
               \|
-              = link_to 'Delete', journey_step_path(journey_id: journey.id, id: step.id) , method: :delete, data: { confirm: 'Are you sure?' }, class: "small-link delete"
+              = link_to 'Delete', journey_step_path(journey_id: journey.id, id: step.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "small-link delete"
     = link_to 'Edit Journey', edit_value_proposition_journey_path(value_proposition_id:@value_proposition.id, id:journey.id), class:"btn btn-default edit_journey"
     = link_to 'Add Step', new_journey_step_path(journey_id:journey.id), class: "btn btn-default"
     = link_to 'Reorder Steps', reorder_steps_path(journey_id: journey.id), class: "btn btn-default"

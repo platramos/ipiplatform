@@ -1,5 +1,5 @@
 class StepsController < ApplicationController
-  before_action :load_journey, only: [:create, :edit, :reorder]
+  before_action :load_journey, only: [:show, :create, :edit,:update, :reorder, :destroy]
   before_action :load_step, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -39,7 +39,7 @@ class StepsController < ApplicationController
 
   def update
     if @step.update(step_params)
-      redirect_to edit_value_proposition_path(step_params[:value_proposition_id]), notice: 'Step was successfully updated.'
+      redirect_to edit_value_proposition_path(@journey.value_proposition_id), notice: 'Step was successfully updated.'
     else
       @resources = @step.resources
       render action: 'edit'
@@ -48,7 +48,7 @@ class StepsController < ApplicationController
 
   def destroy
     @step.destroy
-    redirect_to edit_value_proposition_path(@step.value_proposition_id)
+    redirect_to edit_value_proposition_path(@journey.value_proposition_id)
   end
 
   def reorder
@@ -66,7 +66,6 @@ class StepsController < ApplicationController
   end
 
   private
-
     # Use callbacks to share common setup or constraints between actions.
     def load_step
      @step = @journey.steps.find(params[:id])
