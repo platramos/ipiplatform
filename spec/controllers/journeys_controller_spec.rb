@@ -22,11 +22,11 @@ describe JourneysController do
                       journey: valid_attributes }
     end
     describe "successful journey save" do
-      it "should redirect to value proposition page" do
+      it "should redirect to edit value proposition page" do
         mock_journey.stub(:save).and_return(true)
         post :create, { value_proposition_id: value_proposition_id,
                         journey: valid_attributes}
-        response.should redirect_to(value_proposition_path(value_proposition_id))
+        response.should redirect_to(edit_value_proposition_path(value_proposition_id))
       end
     end
     describe "fail to save journey" do

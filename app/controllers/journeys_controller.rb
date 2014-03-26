@@ -5,7 +5,7 @@ class JourneysController < ApplicationController
     @journey = @value_proposition.journeys.new(journey_params)
 
     if @journey.save
-      redirect_to value_proposition_path(params[:value_proposition_id])
+      redirect_to edit_value_proposition_path(params[:value_proposition_id])
     else
       render action: 'new'
     end
