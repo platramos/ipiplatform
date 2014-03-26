@@ -9,7 +9,7 @@ describe Step do
   end
 
   describe 'associations' do
-    it { should belong_to(:value_proposition) }
+    it { should belong_to(:journey) }
 
     it 'should have and belong to many resources' do
       Step.reflect_on_association(:resources).macro.should == :has_and_belongs_to_many

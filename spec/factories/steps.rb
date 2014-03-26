@@ -5,6 +5,6 @@ FactoryGirl.define do
     name "MyString"
     description "MyText"
 
-    association :value_proposition, strategy: :build
+    association :journey, strategy: :build
   end
 end
