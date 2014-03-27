@@ -1,6 +1,6 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
     provider :saml,
-       :assertion_consumer_service_url     => "http://localhost:3000/auth/saml/callback/",
+       :assertion_consumer_service_url     => "http://ipiplatform-forked.herokuapp.com/auth/saml/callback/",
        :issuer                             => "Innovation Platform Initiative",
        :idp_sso_target_url                 => "https://thoughtworks.oktapreview.com/app/template_saml_2_0/k24bmo43RKFXFPLQGFJU/sso/saml",
        :idp_cert                           => "-----BEGIN CERTIFICATE-----
