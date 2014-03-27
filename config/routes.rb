@@ -1,5 +1,7 @@
 IpiPlatform::Application.routes.draw do
 
+  get 'omniauth/success'
+  post '/auth/saml/callback', to: 'omniauth#success'
 resources :steps, except: :new do
   collection do
     get :reorder
@@ -10,7 +12,6 @@ end
   resources :sessions
   resources :users
 
-  post'auth/saml/callback/', to: 'omniauth#success'
   get 'pages/home'
   get 'pages/publisher'
   get 'pages/value_proposition_categories'
