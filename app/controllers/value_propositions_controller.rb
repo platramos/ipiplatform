@@ -3,7 +3,7 @@ class ValuePropositionsController < ApplicationController
   before_action :redirect_if_unauthorized, except: [:show]
 
   before_action :set_value_proposition, only: [:show, :edit, :update, :destroy]
-  before_action :load_steps, only: [:show, :edit]
+#  before_action :load_steps, only: [:show, :edit]
 
   def index
     @value_proposition = ValueProposition.all
@@ -48,7 +48,7 @@ class ValuePropositionsController < ApplicationController
     if @value_proposition.update(value_proposition_params)
       redirect_to value_proposition_path(@value_proposition), notice: 'Value proposition was successfully updated.'
     else
-      load_steps
+     # load_steps
       render action: 'edit'
     end
   end
@@ -64,7 +64,7 @@ class ValuePropositionsController < ApplicationController
   private
 
   def load_steps
-    @steps = ValueProposition.find(params[:id]).steps.order(:position)
+ #   @steps = ValueProposition.find(params[:id]).steps.order(:position)
   end
 
   def set_value_proposition

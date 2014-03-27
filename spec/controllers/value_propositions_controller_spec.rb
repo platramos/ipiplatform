@@ -160,7 +160,7 @@ describe ValuePropositionsController do
     end
 
     context 'as an admin user' do
-      it 'should show the requested value proposition' do
+     it 'should show the requested value proposition' do
         ApplicationController.any_instance.stub(:redirect_if_not_signed_in).and_return(nil)
         ApplicationController.any_instance.stub(:redirect_if_unauthorized).and_return(nil)
 
@@ -168,29 +168,6 @@ describe ValuePropositionsController do
 
         expect(response.status).to be(200)
         expect(controller.request.path).to eql(value_proposition_path)
-      end
-
-      it 'should assign steps and resource' do
-        step = FactoryGirl.create(:step, value_proposition: @value_proposition)
-        resource1 = FactoryGirl.create(:resource, steps: [step])
-        resource2 = FactoryGirl.create(:resource, name: 'resource2', steps: [step])
-        get :show, @get_params
-
-        assigns(:value_proposition).steps =~ [step]
-        assigns(:value_proposition).steps.first.resources =~ [resource1, resource2]
-
-      end
-
-      it 'should assign steps ordered be position' do
-        mock_steps = [double(Step)]
-        mock_steps.should_receive(:order).with(:position).and_return(mock_steps)
-        mock_value_proposition = double(ValueProposition)
-        mock_value_proposition.stub(:steps).and_return(mock_steps)
-        ValueProposition.stub(:find).and_return(mock_value_proposition)
-
-        get :show, @get_params
-
-        assigns(:steps).should eql mock_steps
       end
     end
 
@@ -247,21 +224,13 @@ describe ValuePropositionsController do
       context 'when update returns false' do
         before :each do
           @mock_value_proposition.stub(:update).and_return(false)
-          @mocked_steps = [double(Step)]
-          ValueProposition.stub_chain(:find, :steps).and_return(@mocked_steps)
         end
 
         it 'should re-render edit template' do
-          @mocked_steps.stub(:order)
           patch :update, @update_params
           response.should render_template('edit')
         end
 
-        it 'should assign ordered steps' do
-          @mocked_steps.should_receive(:order).with(:position).and_return(@mocked_steps)
-          patch :update, @update_params
-          assigns(:steps).should eql @mocked_steps
-        end
       end
     end
 
@@ -295,19 +264,10 @@ describe ValuePropositionsController do
   end
 
   describe "GET edit" do
-    it 'should assign steps ordered by position' do
-      ApplicationController.any_instance.stub(:redirect_if_not_signed_in).and_return(nil)
-      ApplicationController.any_instance.stub(:redirect_if_unauthorized).and_return(nil)
-
-      mock_steps = [double(Step)]
-      mock_steps.should_receive(:order).with(:position).and_return(mock_steps)
-      mock_value_proposition = double(ValueProposition)
-      mock_value_proposition.stub(:steps).and_return(mock_steps)
-      ValueProposition.stub(:find).and_return(mock_value_proposition)
-
-      get :edit, { :id => 0 }
-
-      assigns(:steps).should eql mock_steps
+    it 'should assign @value_proposition to value proposition' do
+      ValueProposition.stub(:find).with(anything()).and_return(@mock_value_proposition)
+      get :edit, {id: "0"}
+      assigns(:value_proposition).should eq(@mock_value_proposition)
     end
   end
 end
