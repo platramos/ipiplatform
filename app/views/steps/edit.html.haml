@@ -1,6 +1,9 @@
 %h1 Editing step
-
-= render 'form'
+= form_for(@step, url: journey_step_path(@step.journey_id, @step.id)) do |f|
+  = render :partial => 'form', :locals => {:f => f}
+  .actions
+    = f.submit 'Save', class: "btn btn-default"
+    %br
 
 %h3 Resources
 .row
