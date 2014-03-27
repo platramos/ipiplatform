@@ -10,4 +10,5 @@ class EditValuePropositionPage < SitePrism::Page
   elements :edit_step_links, "a.edit"
   elements :delete_step_links, "a.delete"
   elements :edit_journey, ".edit_journey"
+  elements :journeys, "h4"
 end

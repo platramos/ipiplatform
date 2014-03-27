@@ -4,7 +4,8 @@ Background:
     Given an admin account exists
     And I login as an admin
     And a value proposition category and a value proposition exist
-    And a step exists for the last value proposition
+    And a journey exists
+    And a step exists for the last journey
     And a resource exists for the last step
     And a resource exists for the last step
 

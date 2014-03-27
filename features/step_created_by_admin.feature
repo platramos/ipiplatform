@@ -4,8 +4,9 @@ Background:
   Given an admin account exists
   And I login as an admin
   And a value proposition exists
+  And a journey exists
   And I go to the edit value proposition page for the value proposition
-  
+
 Scenario: Step requires certain attributes
   When I click the link to the new step page
   And I submit the step

@@ -40,8 +40,8 @@ Given(/^a step exists$/) do
   @step = FactoryGirl.create(:step)
 end
 
-Given(/^a step exists for the value proposition$/) do
-  @step = FactoryGirl.create(:step, value_proposition_id: @value_proposition.id)
+Given(/^a step exists for the last journey$/) do
+  @step = FactoryGirl.create(:step, journey_id: @journey.id)
 end
 
 Given(/^a value proposition category and a value proposition exist$/) do

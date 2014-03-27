@@ -8,13 +8,12 @@ When(/^I create a new journey$/) do
   @new_journey_page.submit_button.click
 end
 
-Then(/^I should be redirected to the value proposition page$/) do
-  @show_value_proposition_page = ShowValuePropositionPage.new
-  @show_value_proposition_page.should be_displayed
+Then(/^I should be redirected to the edit value proposition page$/) do
+  @edit_value_proposition_page.should be_displayed
 end
 
 Then(/^I should see the new journey$/) do
-  @show_value_proposition_page.journeys.last.should have_text("jTitle")
+  @edit_value_proposition_page.journeys.last.should have_text("jTitle")
 end
 
 When(/^I navigate to the edit journey page$/) do

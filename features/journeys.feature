@@ -8,7 +8,7 @@ Feature: Creating a journey
   Scenario: Creating a new journey
     When I navigate to the create new journey page
     And I create a new journey
-    Then I should be redirected to the value proposition page
+    Then I should be redirected to the edit value proposition page
     And I should see the new journey
 
 
