@@ -101,4 +101,21 @@ describe JourneysController do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    before do
+      mock_value_proposition.stub_chain(:journeys, :find).with(mock_journey.id).and_return(mock_journey)
+    end
+    it "should call destroy on journey" do
+      mock_journey.should_receive(:destroy)
+      delete :destroy, { value_proposition_id: value_proposition_id, 
+                         id: mock_journey.id}
+    end
+    it "should redirect to the edit value proposition page" do
+      mock_journey.stub(:destroy)
+      delete :destroy, { value_proposition_id: value_proposition_id, 
+                         id: mock_journey.id}
+      response.should redirect_to(edit_value_proposition_path(value_proposition_id))
+    end
+  end
 end

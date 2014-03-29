@@ -26,6 +26,8 @@ gem 'omniauth'
 gem 'omniauth-saml'
 gem 'byebug'
 
+gem 'rails_12factor'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'rspec-mocks'

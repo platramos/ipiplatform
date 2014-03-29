@@ -1,5 +1,10 @@
 class JourneysController < ApplicationController
   before_filter :load_value_proposition
+  before_action :load_journey, only: [:destroy]
+  def new
+    @journey = Journey.new
+    @value_proposition_id = params[:value_proposition_id]
+  end
 
   def create
     @journey = @value_proposition.journeys.new(journey_params)
@@ -9,11 +14,6 @@ class JourneysController < ApplicationController
     else
       render action: 'new'
     end
-  end
-
-  def new
-    @journey = Journey.new
-    @value_proposition_id = params[:value_proposition_id]
   end
 
   def edit
@@ -28,6 +28,13 @@ class JourneysController < ApplicationController
       end
   end
 
+  def destroy
+    @journey.destroy
+    redirect_to edit_value_proposition_path(@journey.value_proposition_id)
+  end
+
+  private
+
   def journey_params
     params.require(:journey).permit(:title, :value_proposition_id)
   end
@@ -38,6 +45,10 @@ class JourneysController < ApplicationController
 
   def load_journey_to_update
     @value_proposition.journeys.find(params[:id])
+  end
+
+  def load_journey
+    @journey = @value_proposition.journeys.find(params[:id])
   end
 
 end
