@@ -1,6 +1,6 @@
 class EditStepPage < SitePrism::Page
-  set_url "/steps{/id}/edit"
-  set_url_matcher /\/steps\/\d+\/edit/
+  set_url "/journeys{/journey_id}/steps{/id}/edit"
+  set_url_matcher /\/journeys\/\d+\/steps\/\d+\/edit/
 
   elements "resources_to_edit", "a.edit"
   element "resource_name", "#resource_name"

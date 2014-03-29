@@ -206,8 +206,12 @@ describe ResourcesController do
       end
 
       it 'assigns the step id as @step_id' do
-        Resource.stub(:find)
         mock_step = stub_model(Step, id: 0)
+        mock_journey = double(Journey)
+        mock_resource = double(Resource)
+        Resource.stub(:find).with(anything()).and_return(mock_resource)
+        mock_resource.stub_chain(:steps, :find).with(anything()).and_return(mock_step)
+        mock_step.stub(:journey).and_return(mock_journey)
         Step.stub(:find).with([0]).and_return([mock_step])
         get :edit, { id: 0, step_id: 0 }
 
@@ -252,7 +256,7 @@ describe ResourcesController do
 
         it 'should redirect to the edit step page' do
           patch :update, @update_params
-          response.should redirect_to(edit_step_path(@step.id))
+          response.should redirect_to(edit_journey_step_path(@step.journey_id, @step.id))
         end
 
         context 'resource without a step' do

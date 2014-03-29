@@ -7,7 +7,7 @@ Feature: User Viewing Resources
 
   Scenario: Users can see all resources
     When I go to the resources index page
-    Then I should see all resources 
+    Then I should see all resources
 
   Scenario: Users can view a specific resource
     When I go to the resources index page

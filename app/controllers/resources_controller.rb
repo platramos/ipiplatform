@@ -2,7 +2,6 @@ class ResourcesController < ApplicationController
   before_action :redirect_if_not_signed_in
 
   before_action :redirect_if_unauthorized, except: [:create, :destroy, :edit, :index, :new, :show, :update, :reorder, :sort, :filter]
-
   before_action :set_resource, only: [:show, :edit, :update, :destroy]
   before_action :set_resource_associations, only: [:index, :show, :new, :edit, :create, :update, :filter]
 
@@ -41,6 +40,12 @@ class ResourcesController < ApplicationController
 
   def edit
     @step_id = params[:step_id]
+    if @step_id.nil?
+      @path = resources_path
+    else
+      @journey = load_journey
+      @path = edit_journey_step_path(journey_id: @journey.id, id: @step_id)
+    end
   end
 
   def create
@@ -62,8 +67,14 @@ class ResourcesController < ApplicationController
   def update
     if current_user.present? and current_user.can_edit_and_delete_resource? current_user, @resource
       if @resource.update(resource_params)
-        path = params[:step_id].nil? ? resources_path : edit_step_path(params[:step_id])
-        redirect_to path, notice: 'Resource was successfully updated.'
+        if @step_id.nil?
+          path = resources_path
+        else
+          @journey = load_journey
+          path =  edit_journey_step_path(@journey.id, params[:step_id])
+          redirect_to path, notice: 'Resource was successfully updated.'
+        end
+
       else
         render action: 'edit'
       end
@@ -130,6 +141,10 @@ class ResourcesController < ApplicationController
   private
   def set_resource
     @resource = Resource.find(params[:id])
+  end
+
+  def load_journey
+    @resource.steps.find(params[:step_id]).journey
   end
 
   def resource_params

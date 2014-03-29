@@ -3,7 +3,5 @@
 - url = @step_id.nil? ? update_free_resource_path : update_resource_path(step_id: @step_id)
 = render partial: 'form', locals: { url: url }
 
-- if @step_id.nil?
-  = link_to 'Back', resources_path
-- else
-  = link_to 'Back', edit_step_path(@step_id)
+
+= link_to 'Back', @path
