@@ -65,16 +65,16 @@ class ResourcesController < ApplicationController
   end
 
   def update
+    @step_id = params[:step_id]
     if current_user.present? and current_user.can_edit_and_delete_resource? current_user, @resource
       if @resource.update(resource_params)
         if @step_id.nil?
           path = resources_path
         else
           @journey = load_journey
-          path =  edit_journey_step_path(@journey.id, params[:step_id])
-          redirect_to path, notice: 'Resource was successfully updated.'
+          path =  edit_journey_step_path(journey_id: @journey.id, id: @step_id)
         end
-
+        redirect_to path, notice: 'Resource was successfully updated.'
       else
         render action: 'edit'
       end

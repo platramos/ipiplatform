@@ -44,7 +44,7 @@ end
 
 When(/^I am on the edit step page$/) do
   @edit_step_page = EditStepPage.new
-  @edit_step_page.load(journey_id: @journey.id, id: @step.id)
+  @edit_step_page.load(journey_id: @step.journey_id, id: @step.id)
 end
 
 When(/^I go to the edit value proposition page for the value proposition$/) do

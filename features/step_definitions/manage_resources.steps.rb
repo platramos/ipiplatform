@@ -99,6 +99,7 @@ Then(/^I should not have the option to delete another user's resource$/) do
 end
 
 Then(/^that resource should no longer be displayed$/) do
+ # page.should_not have_content("#{@resource.name}")
   expect(page.has_xpath?(one_resource_xpath)).to be_false
 end
 

@@ -213,6 +213,7 @@ describe ResourcesController do
         mock_resource.stub_chain(:steps, :find).with(anything()).and_return(mock_step)
         mock_step.stub(:journey).and_return(mock_journey)
         Step.stub(:find).with([0]).and_return([mock_step])
+        mock_journey.stub(:id).and_return(0)
         get :edit, { id: 0, step_id: 0 }
 
         assigns(:step_id).should == "0"
@@ -242,6 +243,7 @@ describe ResourcesController do
           controller.stub(:current_user).and_return(@admin_user)
           @step = FactoryGirl.create(:step)
           @resource = FactoryGirl.create(:resource, user: @user, step_ids: [@step.id])
+          @step_id = @step.id
           @update_params[:id] = @resource.id
           @update_params[:resource][:step_ids] = [@step.id]
           @update_params[:user_id] = @user.id
