@@ -573,6 +573,7 @@ describe ResourcesController do
       it 'should add resource to a step' do
         resource = FactoryGirl.build(:resource, id: 0)
         resources = [resource]
+        @journey = double(Journey)
         step = FactoryGirl.build(:step, id: 0)
         Resource.stub(:find).and_return(resources)
         Step.stub(:find).and_return(step)
@@ -580,7 +581,7 @@ describe ResourcesController do
         post :add_existing_resources, {step_id: 0, resource_id: [0]}
 
         resources.first.steps.first.should eql step
-        response.should redirect_to(edit_step_path(0))
+        response.should redirect_to(edit_journey_step_path(journey_id: 0, step_id: 0))
       end
     end
 
@@ -597,7 +598,7 @@ describe ResourcesController do
 
         resources.first.steps.first.should eql step
         resources.second.steps.first.should eql step
-        response.should redirect_to(edit_step_path(0))
+        response.should redirect_to(edit_journey_step_path(journey_id: 0, id: 0))
       end
     end
 
