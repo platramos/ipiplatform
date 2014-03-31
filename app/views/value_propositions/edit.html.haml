@@ -19,8 +19,11 @@
     = link_to 'Edit Journey', edit_value_proposition_journey_path(value_proposition_id:@value_proposition.id, id:journey.id), class:"btn btn-default edit_journey"
     = link_to 'Add Step', new_journey_step_path(journey_id:journey.id), class: "btn btn-default", id:"add_step"
     = link_to 'Reorder Steps', reorder_steps_path(journey_id: journey.id), class: "btn btn-default"
+    %br
+    = link_to 'Delete Journey', value_proposition_journey_path(value_proposition_id:@value_proposition.id, id: journey.id), method: :delete, class:"btn btn-default", id:"delete_journey"
 %br
 = link_to 'Add New Journey', new_value_proposition_journey_path(value_proposition_id:@value_proposition.id), class:"btn btn-default", id:"new_journey"
-= link_to 'Show', @value_proposition
 \|
 = link_to 'Back', edit_value_proposition_category_path(@value_proposition.value_proposition_category)
+\|
+= link_to 'Show', @value_proposition
