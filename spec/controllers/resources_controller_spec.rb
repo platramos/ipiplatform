@@ -11,6 +11,7 @@ describe ResourcesController do
       @description = 'as in tasty carrots'
       @name = 'orange'
       @step = FactoryGirl.create(:step, id: 0)
+      @journey = FactoryGirl.create(:journey, id:0)
       @create_params = {
         resource: {
           name: @name,
@@ -78,7 +79,7 @@ describe ResourcesController do
         context 'step_id param is not nil' do
           it 'should redirect to step edit page' do
             patch :create, @create_params
-            response.should redirect_to(edit_step_path(@create_params[:step_id]))
+            response.should redirect_to(edit_journey_step_path(journey_id: @step.journey.id, id: @step.id))
           end
         end
 
