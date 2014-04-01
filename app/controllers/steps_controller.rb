@@ -11,7 +11,7 @@ class StepsController < ApplicationController
 
   def new
     @step = Step.new
-    @value_proposition_id = params[:value_proposition_id]
+    @value_proposition_id = load_journey.value_proposition_id
     @journey_id = params[:journey_id]
   end
 

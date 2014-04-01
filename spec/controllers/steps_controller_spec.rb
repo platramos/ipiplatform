@@ -26,6 +26,10 @@ describe StepsController do
   end
 
   describe "GET new" do
+    before do
+      Journey.stub(:find).with(journey_id).and_return(mock_journey)
+      mock_journey.stub(:value_proposition_id).and_return(0)
+    end
     it "loads a new step" do
       Step.should_receive(:new)
       get :new, {journey_id: journey_id}

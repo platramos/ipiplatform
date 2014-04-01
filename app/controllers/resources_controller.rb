@@ -56,8 +56,8 @@ class ResourcesController < ApplicationController
       if params[:step_id].nil?
         redirect_to resources_path, notice: 'Resource was successfully created.'
       else
-        # Step.find(params[:step_id]).add_resource(@resource)
-        redirect_to edit_step_path(params[:step_id]), notice: 'Resource was successfully created.'
+        @journey = load_journey
+        redirect_to edit_journey_step_path(journey_id: @journey.id, id: params[:step_id]), notice: 'Resource was successfully created.'
       end
     else
       render action: 'new'
