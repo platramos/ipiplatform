@@ -86,7 +86,7 @@ describe JourneysController do
           put :update, {  value_proposition_id: value_proposition_id,
                           id: mock_journey.id,
                           journey: valid_attributes}
-          response.should redirect_to(value_proposition_path(value_proposition_id))
+          response.should redirect_to(edit_value_proposition_path(value_proposition_id))
         end
       end
       describe "journey update failure" do

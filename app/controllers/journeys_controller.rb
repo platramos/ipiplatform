@@ -10,7 +10,7 @@ class JourneysController < ApplicationController
     @journey = @value_proposition.journeys.new(journey_params)
 
     if @journey.save
-      redirect_to edit_value_proposition_path(params[:value_proposition_id])
+      redirect_to edit_value_proposition_path(params[:value_proposition_id]), notice: 'Journey was successfully created'
     else
       render action: 'new'
     end
@@ -22,7 +22,7 @@ class JourneysController < ApplicationController
 
   def update
       if load_journey_to_update.update(journey_params)
-        redirect_to value_proposition_path(params[:value_proposition_id])
+        redirect_to edit_value_proposition_path(params[:value_proposition_id]), notice: 'Journey was successfully updated'
       else
         render action: 'edit'
       end

@@ -1,4 +1,5 @@
-= form_tag add_existing_resources_path, method: :post do
+%h2 Resources
+=form_tag add_existing_resources_path, method: :post do
   -@resources.each do |r|
     =check_box_tag "resource_id[]", r.id, false
     =label_tag r.name
