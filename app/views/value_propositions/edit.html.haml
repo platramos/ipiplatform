@@ -24,6 +24,6 @@
 %br
 = link_to 'Add New Journey', new_value_proposition_journey_path(value_proposition_id:@value_proposition.id), class:"btn btn-default", id:"new_journey"
 \|
-= link_to 'Back', edit_value_proposition_category_path(@value_proposition.value_proposition_category)
+= link_to 'Back', value_proposition_path(@value_proposition.id)
 \|
 = link_to 'Show', @value_proposition
