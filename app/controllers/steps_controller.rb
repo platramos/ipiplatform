@@ -1,5 +1,5 @@
 class StepsController < ApplicationController
-  before_action :load_journey, only: [:show, :create, :edit,:update, :reorder, :destroy]
+  before_action :load_journey, only: [:new, :show, :create, :edit,:update, :reorder, :destroy]
   before_action :load_step, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -11,7 +11,7 @@ class StepsController < ApplicationController
 
   def new
     @step = Step.new
-    @value_proposition_id = load_journey.value_proposition_id
+    @value_proposition_id = @journey.value_proposition_id
     @journey_id = params[:journey_id]
   end
 
@@ -25,6 +25,7 @@ class StepsController < ApplicationController
   end
 
   def edit
+    @value_proposition_id = @journey.value_proposition_id
     @resources = @step.resources.order(:position)
   end
 
