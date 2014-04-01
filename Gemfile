@@ -37,6 +37,7 @@ group :test, :development do
   gem 'poltergeist'
   gem "site_prism", "~> 2.4"
   gem 'railroady'
+  gem 'fuubar'
 end
 
 group :test do
