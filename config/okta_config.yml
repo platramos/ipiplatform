@@ -1,0 +1,4 @@
+common_config: &common_config
+  issuer: "Innovation Platform Initiative"
+  idp_sso_target_url: "https://thoughtworks.oktapreview.com/app/template_saml_2_0/k24bmo43RKFXFPLQGFJU/sso/saml"
+  name_identifier_format: "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
