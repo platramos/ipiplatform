@@ -1,0 +1,40 @@
+%ul
+  %li= link_to "Home", root_path
+  %ul
+    %li#vp_button= link_to "Value Proposition Categories", value_proposition_categories_path
+    %ul#toggle
+      - @value_proposition_categories.each do |vp_category|
+        %li
+          = link_to vp_category.name, value_proposition_category_path(vp_category)
+        %ul
+          Value Propositions
+          %ul
+            - vp_category.value_propositions.each do |value_proposition|
+              %li
+                = link_to value_proposition.name, value_proposition_path(value_proposition)
+              %ul
+                - if !value_proposition.journeys.empty?
+                  Journeys
+                - value_proposition.journeys.each do |journey|
+                  %ul
+                    %li
+                      = link_to journey.title, edit_value_proposition_journey_path(value_proposition_id: value_proposition.id, id: journey.id)
+                    %ul
+                      Steps
+                      - journey.steps.each do |step|
+                        %ul
+                          %li
+                            = link_to step.name, journey_step_path(journey_id: journey.id, id: step.id)
+  %ul
+    %li= link_to "Resources", resources_path
+    %ul
+      - @resources.each do |resource|
+        %li
+          = link_to resource.name, resource_path(resource)
+  %ul
+    %li= link_to "About", pages_aboutus_path
+
+:javascript
+  $( "#vp_button" ).click(function() {
+    $( "#toggle" ).slideToggle( "slow" );
+  });

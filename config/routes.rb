@@ -11,6 +11,7 @@ end
 
   resources :sessions
   resources :users
+  get 'sitemap/index'
 
   get 'pages/home'
   get 'pages/publisher'
