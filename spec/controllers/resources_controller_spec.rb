@@ -637,9 +637,9 @@ describe ResourcesController do
       controller.stub(:current_user).and_return(@admin_user)
     end
 
-    it 'should remove the resource from teh step' do
+    it 'should remove the resource from the step' do
         resource = FactoryGirl.build(:resource, id: 0)
-        step = FactoryGirl.build(:step, id: 0)
+        step = FactoryGirl.build(:step, id: 0, journey_id: 0)
         step.resources << resource
         Step.stub(:find).and_return(step)
         Resource.stub(:find).and_return(resource)
@@ -647,7 +647,7 @@ describe ResourcesController do
         get :remove, { id: resource.id, step_id: step.id }
 
         step.resources.size.should eql 0
-        response.should redirect_to(edit_step_path(step.id))
+        response.should redirect_to(edit_journey_step_path(journey_id: step.journey_id, id: step.id))
     end
   end
 

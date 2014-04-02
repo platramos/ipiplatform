@@ -135,7 +135,8 @@ class ResourcesController < ApplicationController
     @resource = Resource.find(params[:id])
     @step = Step.find(params[:step_id])
     @step.resources -= [@resource]
-    redirect_to edit_step_path(@step.id)
+    #redirect_to edit_step_path(@step.id)
+    redirect_to edit_journey_step_path(journey_id: @step.journey_id, id: @step.id)
   end
 
   private
