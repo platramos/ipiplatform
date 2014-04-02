@@ -1,6 +1,7 @@
 class JourneysController < ApplicationController
   before_filter :load_value_proposition
   before_action :load_journey, only: [:destroy]
+
   def new
     @journey = Journey.new
     @value_proposition_id = params[:value_proposition_id]

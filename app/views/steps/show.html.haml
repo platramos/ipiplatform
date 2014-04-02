@@ -7,6 +7,4 @@
   %b Description:
   = @step.description
 
-= link_to 'Edit', edit_step_path(@step)
-\|
-= link_to 'Back', edit_value_proposition_path(@step.value_proposition_id)
+= link_to 'Back', edit_journey_step_path(journey_id: @step.journey_id, id: @step.id)
