@@ -27,6 +27,6 @@ When(/^I change the title of that journey$/) do
 end
 
 Then(/^I should see the new journey title$/) do
-  @show_value_proposition_page.journeys.first.should have_text("changedTitle")
+  @edit_value_proposition_page.journeys.first.should have_text("changedTitle")
 end
 

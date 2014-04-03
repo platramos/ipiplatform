@@ -8,7 +8,7 @@ Feature: Admin Deletes any Resource
   And a step exists for the last journey
   And the admin creates a resource
   And I am on the edit step page
-  @wip
+
   @javascript
 Scenario: An admin can delete any resource from the resource index page
   When I select the resource to delete

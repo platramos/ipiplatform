@@ -9,5 +9,5 @@ Feature: Editing a journey
   Scenario: Editing a journey
     When I navigate to the edit journey page
     And I change the title of that journey
-    Then I should be redirected to the value proposition page
+    Then I should be redirected to the edit value proposition page
     And I should see the new journey title

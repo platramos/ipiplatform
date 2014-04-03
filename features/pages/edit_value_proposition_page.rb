@@ -4,11 +4,9 @@ class EditValuePropositionPage < SitePrism::Page
 
   element :add_step_link, "#add_step"
   element :new_journey, "#new_journey"
-  # sections :steps, StepSection, ".step"
-
   elements :show_step_links, ".show-step"
   elements :edit_step_links, "a.edit"
   elements :delete_step_links, "a.delete"
-  elements :edit_journey, ".edit_journey"
+  elements :edit_journey, "#edit_journey"
   elements :journeys, "h4"
 end

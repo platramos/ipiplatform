@@ -15,7 +15,7 @@ Then(/^I should see the steps of the value proposition$/) do
 end
 
 Then(/^I should see the resources of the value proposition$/) do
-  @show_value_proposition_page.resources.size.should eql 2
+  @show_value_proposition_page.resources.size.should eql 1
 end
 private
 
