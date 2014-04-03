@@ -569,20 +569,17 @@ describe ResourcesController do
       controller.stub(:current_user).and_return(@admin_user)
     end
 
-    
     context 'when a resource is selected' do
       it 'should add resource to a step' do
         resource = FactoryGirl.build(:resource, id: 0)
         resources = [resource]
-        @journey = double(Journey)
-        step = FactoryGirl.build(:step, id: 0)
+        step = FactoryGirl.build(:step, id: 0, journey_id: 0)
         Resource.stub(:find).and_return(resources)
         Step.stub(:find).and_return(step)
-
         post :add_existing_resources, {step_id: 0, resource_id: [0]}
 
         resources.first.steps.first.should eql step
-        response.should redirect_to(edit_journey_step_path(journey_id: 0, step_id: 0))
+        response.should redirect_to(edit_journey_step_path(journey_id: step.journey_id, id: step.id))
       end
     end
 
@@ -591,7 +588,7 @@ describe ResourcesController do
         resource1 = FactoryGirl.build(:resource, id:0)
         resource2 = FactoryGirl.build(:resource, id:1)
         resources = [resource1, resource2]
-        step = FactoryGirl.build(:step, id:0)
+        step = FactoryGirl.build(:step, id:0, journey_id: 0)
         Resource.stub(:find).and_return(resources)
         Step.stub(:find).and_return(step)
 
@@ -599,7 +596,7 @@ describe ResourcesController do
 
         resources.first.steps.first.should eql step
         resources.second.steps.first.should eql step
-        response.should redirect_to(edit_journey_step_path(journey_id: 0, id: 0))
+        response.should redirect_to(edit_journey_step_path(journey_id: step.journey_id, id: step.id))
       end
     end
 

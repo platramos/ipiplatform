@@ -104,7 +104,6 @@ class ResourcesController < ApplicationController
         flash[:error] = "Resource for step already selected"
         return redirect_to show_existing_resources_path(@step.id)
       end
-
       redirect_to edit_journey_step_path(journey_id: @step.journey_id, id: @step.id), notice: 'Resource was successfully added.'
     else
       flash[:error] = "Please select a resource to add"
