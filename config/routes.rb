@@ -2,7 +2,7 @@ IpiPlatform::Application.routes.draw do
 
 
   get 'sessions/success'
-  post '/auth/saml/callback', to: 'sessions#success'
+  post '/auth/saml/callback', to: 'sessions#create'
 resources :steps, except: :new do
   collection do
     get :reorder
