@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe UsersController do
   before(:each) do
+    @okta_user_id = 3
+    ApplicationController.stub(:okta_user).and_return(@okta_user_id)
+    session[:userinfo] = @okta_user_id
+
     @user = FactoryGirl.create(:user)
     controller.stub(:current_user).and_return(@user)
   end
@@ -32,7 +36,6 @@ describe UsersController do
 
       it 'should redirect the user' do
         get :show, @other_user_params
-
         expect(response.status).to be(302)
         response.should redirect_to(root_path)
       end

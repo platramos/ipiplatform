@@ -6,12 +6,10 @@ class ApplicationController < ActionController::Base
   before_action :redirect_if_not_authorized_by_okta
 
   def redirect_if_not_authorized_by_okta
-    if okta_user
-      #@current_user
+    if session[:userinfo]
     else
       redirect_to '/auth/saml'
     end
-    #redirect_to '/auth/saml', notice: "Please sign in!" and return if @okta_user.nil?
   end
 
   def redirect_if_not_signed_in

@@ -8,6 +8,11 @@ describe StepsController do
   let(:mock_step) { mock_model(Step, id:"0", name: "stepName", journey_id: journey_id)}
   let(:mock_journey) { mock_model(Journey, title: "JourneyTitle", value_proposition_id: "0")}
 
+  before do
+    @okta_user_id = 3
+    ApplicationController.stub(:okta_user).and_return(@okta_user_id)
+    session[:userinfo] = @okta_user_id
+  end
   describe "GET index" do
     it "assigns all steps as @steps" do
       Step.stub(:all).and_return([mock_step])

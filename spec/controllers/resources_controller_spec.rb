@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe ResourcesController do
   before :each do
+    @okta_user_id = 3
+    ApplicationController.stub(:okta_user).and_return(@okta_user_id)
+    session[:userinfo] = @okta_user_id
+
     @admin_user = FactoryGirl.create(:user, :admin)
     @user = FactoryGirl.create(:user)
   end

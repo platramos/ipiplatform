@@ -7,6 +7,10 @@ describe JourneysController do
   let(:valid_attributes) { { "title"=> "JourneyTitle", "value_proposition_id"=> value_proposition_id } }
 
   before do
+    @okta_user_id = 3
+    ApplicationController.stub(:okta_user).and_return(@okta_user_id)
+    session[:userinfo] = @okta_user_id
+
     @admin_user = FactoryGirl.create(:user, :admin)
     ValueProposition.stub(:find).with(value_proposition_id).and_return(mock_value_proposition)
   end

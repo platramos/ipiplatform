@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe ValuePropositionsController do
+  before do
+    @okta_user_id = 3
+    ApplicationController.stub(:okta_user).and_return(@okta_user_id)
+    session[:userinfo] = @okta_user_id
+  end
+
   describe 'POST create' do
     before :each do
       @description = 'as in tasty carrots'

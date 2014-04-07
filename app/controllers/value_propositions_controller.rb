@@ -3,7 +3,6 @@ class ValuePropositionsController < ApplicationController
   before_action :redirect_if_unauthorized, except: [:show]
 
   before_action :set_value_proposition, only: [:show, :edit, :update, :destroy]
-#  before_action :load_steps, only: [:show, :edit]
 
   def index
     @value_proposition = ValueProposition.all

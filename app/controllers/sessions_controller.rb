@@ -11,13 +11,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    session[:userinfo] = request.env['omniauth.auth']
-    user = User.find_by_email(session[:userinfo].uid)
-    if user
+    user = User.find_by_email(params[:email])
+    if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to root_path, notice: 'Logged in!'
+      redirect_to session[:previous_url] || root_path, notice: 'Logged in!'
     else
-      redirect_to root_path
+      redirect_to new_session_path, notice: 'Invalid username or password.'
     end
   end
 
