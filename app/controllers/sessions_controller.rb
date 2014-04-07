@@ -24,6 +24,5 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     session[:userinfo] = nil
     redirect_to "https://thoughtworks.oktapreview.com/login/signout?fromURI=#{ENV['URL']}"
-    #redirect_to root_url, notice: "Logged out!"
   end
 end

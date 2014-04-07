@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe ValuePropositionCategoriesController do
+  before do
+    @okta_user_id = 3
+    ApplicationController.stub(:okta_user).and_return(@okta_user_id)
+    session[:userinfo] = @okta_user_id
+  end
 
   describe '#create' do
     context 'as an admin user' do
