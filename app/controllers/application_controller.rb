@@ -3,6 +3,16 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_filter :store_location
+  before_action :redirect_if_not_authorized_by_okta
+
+  def redirect_if_not_authorized_by_okta
+    if okta_user
+      @current_user = session[:user_id]
+    else
+      redirect_to '/auth/saml'
+    end
+    #redirect_to '/auth/saml', notice: "Please sign in!" and return if @okta_user.nil?
+  end
 
   def redirect_if_not_signed_in
     redirect_to new_session_path, notice: 'Please sign in!' and return if current_user.nil?
@@ -25,6 +35,10 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def okta_user
+    @okta_user = session[:userinfo].uid if session[:userinfo]
   end
   helper_method :current_user
 end
