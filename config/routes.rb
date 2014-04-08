@@ -12,6 +12,8 @@ resources :steps, except: :new do
 end
 
   resources :sessions
+  delete 'okta_session', to: 'sessions#okta_destroy'
+
   resources :users
   get 'sitemap/index'
 

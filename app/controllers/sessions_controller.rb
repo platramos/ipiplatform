@@ -10,6 +10,12 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
+  def okta_destroy
+    session[:user_id] = nil
+    session[:userinfo] = nil
+    redirect_to "https://thoughtworks.oktapreview.com/login/signout?fromURI=#{ENV['URL']}"
+  end
+
   def create
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
@@ -23,7 +29,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    session[:userinfo] = nil
-    redirect_to "https://thoughtworks.oktapreview.com/login/signout?fromURI=#{ENV['URL']}"
+    redirect_to root_path
   end
 end

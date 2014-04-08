@@ -27,3 +27,5 @@
             =link_to 'Sign up', new_user_path, id: "create_account"
           %li
             =link_to 'Sign in', new_session_path
+        %li
+          =link_to "Okta Log Out", okta_session_path("current"), method: "delete", id: "log_out"
