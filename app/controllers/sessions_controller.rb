@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to session[:previous_url] || root_path, notice: 'Logged in!'
+      #redirect_to root_path, notice: 'Logged in!'
     else
       redirect_to new_session_path, notice: 'Invalid username or password.'
     end
