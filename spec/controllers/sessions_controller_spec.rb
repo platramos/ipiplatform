@@ -17,6 +17,7 @@ describe SessionsController do
       #User.any_instance.stub(:authenticate).and_return(true)
     end
 
+
     context 'as the first site interaction' do
       it 'should redirect the user to the homepage' do
         get :new
