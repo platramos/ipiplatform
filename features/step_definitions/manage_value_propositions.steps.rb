@@ -13,6 +13,7 @@ end
 
 When(/^I go to the general value proposition category index page$/) do
   @general_value_proposition_category_page = GeneralValuePropositionCategoryPage.new
+  #general_value_proposition_category_page.should be_displayed
   @general_value_proposition_category_page.load
 end
 
