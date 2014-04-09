@@ -6,8 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :redirect_if_not_authorized_by_okta
 
   def redirect_if_not_authorized_by_okta
-    if session[:userinfo]
-    else
+    if !okta_user
       redirect_to '/auth/saml'
     end
   end
@@ -36,7 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def okta_user
-    @okta_user = session[:userinfo].uid if session[:userinfo]
+    @okta_user = session[:userinfo]
   end
   helper_method :current_user
 end
