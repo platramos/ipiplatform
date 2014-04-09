@@ -6,6 +6,7 @@ Feature: Editing a journey
     And I login as an admin
     And I go to the edit value proposition page for the value proposition
 
+  @omniauth_test
   Scenario: Editing a journey
     When I navigate to the edit journey page
     And I change the title of that journey

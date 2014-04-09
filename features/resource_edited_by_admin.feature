@@ -9,6 +9,7 @@ Feature: Admin Edits any Resource
     And the admin creates a resource
     And I am on the edit step page
 
+  @omniauth_test
   Scenario: An admin can edit a resource from the edit step page
     When I select the resource to edit
     And I edit the resource name

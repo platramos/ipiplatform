@@ -8,6 +8,7 @@ Background:
   And a step exists for the last journey
   And I go to the edit value proposition page for the value proposition
 
+@omniauth_test
 Scenario: User edits step
   When I select the step to edit
   And I edit the step name

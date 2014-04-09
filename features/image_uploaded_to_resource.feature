@@ -8,6 +8,7 @@ Background:
   Given I fill in required resource fields
 
 @javascript
+@omniauth_test
 Scenario: User successfully uploads an image to a resource
   When I upload the image to the image upload
   When I submit the resource

@@ -5,10 +5,12 @@ Feature: Creating resources as an admin
     And I login as an admin
     And I am on the add resource page
 
+  @omniauth_test
   Scenario: Resource requires certain attributes
     When I submit the resource
     Then I should see an error on all required fields
 
+  @omniauth_test
   Scenario: User creates a resource with all fields
     When I fill in all resource fields
     And I submit the resource

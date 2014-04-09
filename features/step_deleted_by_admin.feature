@@ -7,6 +7,8 @@ Feature: Admin Deletes any Step
     And a journey exists
     And a step exists for the last journey
     And I go to the edit value proposition page for the value proposition
+
+  @omniauth_test
   @javascript
   Scenario: An admin can delete any step from the step index page
     When I select the step to delete
