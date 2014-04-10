@@ -9,6 +9,7 @@ Background:
     And a resource exists for the last step
 
 @javascript
+@omniauth_test
 Scenario: A user can view the steps and resources on the value proposition show page
     When I go to the last value proposition show page
     Then I should see the steps of the value proposition

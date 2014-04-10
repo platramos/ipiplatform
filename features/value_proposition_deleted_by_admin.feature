@@ -6,6 +6,7 @@ Feature: Deleting an existing value proposition as an admin
     And a value proposition category and a value proposition exist
 
   @javascript
+  @omniauth_test
   Scenario:  Admin can delete an existing value proposition
     When I visit the admin profile page
     And I go to manage all value propositions

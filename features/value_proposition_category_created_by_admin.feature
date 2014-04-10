@@ -4,6 +4,7 @@ Feature: Creating new value proposition category as an admin
     Given an admin account exists
     And I login as an admin
 
+  @omniauth_test
   Scenario: Admin can create a new value proposition category
     When I visit the admin profile page
     And I go to manage value proposition categories

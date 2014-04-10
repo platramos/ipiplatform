@@ -6,6 +6,7 @@ Feature: Creating a new value proposition as an admin
     And a value proposition category exists
 
  @javascript
+ @omniauth_test
   Scenario: Admin can create a new value proposition
     When I visit the admin profile page
     When I go to manage all value propositions
