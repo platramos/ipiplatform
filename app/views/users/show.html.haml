@@ -20,12 +20,11 @@
 %h3 Uploaded Resources
 - @published_resources.each do |resource|
   .resourcebox.span12
-    %strong= resource.name
+    %strong
+      = link_to resource.name, resource
     %br
     = resource.description
     %br
-    .btn
-      = link_to 'Show', resource
     - if current_user.can_edit_and_delete_resource?(current_user, resource)
       .btn
         = link_to 'Edit', edit_free_resource_path(resource)

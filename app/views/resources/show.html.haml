@@ -45,8 +45,8 @@
         =@resource.upvotes.count
         ='users like this resource!'
     %br
-    = raw @resource.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ')
-
+      -@resource.tags.each do |tag|
+        =link_to tag.name, tag_path(tag), class: 'tag_tag'
   .col-sm-8
     %p.full_description
       = @resource.description
