@@ -10,6 +10,7 @@ $('document').ready(function() {
       $('#step-form').slideUp('slow');
       $('.add-step').text('Edit Step');
     }
+
   });
 });
 
