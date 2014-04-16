@@ -4,13 +4,17 @@ $('document').ready(function() {
   $('#step-btn').click(function(){
     if($('#step-form').is(':hidden')){
       $('#step-form').slideDown('slow');
-      $('.add-step').text('Done Adding Step');
+      $('#step-btn').text('Done Adding Step');
     }
     else{
       $('#step-form').slideUp('slow');
-      $('.add-step').text('Edit Step');
+      $('#step-btn').text('Edit Step');
     }
+  });
 
+  $('.add-new-step').click(function(){
+    var stepForm = $('.add-step').clone();
+    $('#resource-form').append(stepForm);
   });
 });
 
