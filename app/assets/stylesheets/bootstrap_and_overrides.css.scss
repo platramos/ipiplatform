@@ -1,1 +1,24 @@
 @import "twitter/bootstrap";
+
+.input-group {
+  .form-control {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+}
+
+
+.input-group .form-control:not(:first-child):not(:last-child){
+  border-radius: 10px;
+}
+
+.col-md-8 {
+ background-color: #7eced5;
+ border-radius: 10px;
+}
+
+.btn-default{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

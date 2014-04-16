@@ -1,6 +1,23 @@
-%h1 New Journey
+/%h1 New Journey
 
-=form_for(@journey, url: value_proposition_journeys_path(@value_proposition_id)) do |form|
-  = form.text_field :title, placeholder: 'Title', id:'journey_title'
-  = form.submit 'Save', class: "btn btn-default", id: 'add_journey'
-= link_to 'Back', edit_value_proposition_path(@value_proposition_id)
+/=form_for(@journey, url: value_proposition_journeys_path(@value_proposition_id)) do |form|
+/  = form.text_field :title, placeholder: 'Title', id:'journey_title'
+/  = form.submit 'Save', class: "btn btn-default", id: 'add_journey'
+/= link_to 'Back', edit_value_proposition_path(@value_proposition_id)
+.col-md-8.col-md-offset-2
+  .col-md-6.col-md-offset-3.input-group
+    =form_for(@journey, url: value_proposition_journeys_path(@value_proposition_id)) do |journey_form|
+      = journey_form.text_field :title, placeholder: 'Journey Title', id:'journey_title', class: 'form-control'
+      = journey_form.fields_for :steps do |step_form|
+        = step_form.text_field :name , placeholder: 'Step Name', id:'step_name', class: 'form-control'
+        = step_form.text_area :description, placeholder: 'Add a Description for the Step', class: 'span8 form-control', id: 'step-description', rows: 5
+        .btn-group.btn-block
+          %button.btn.button-default.btn-block#step-btn{type: "button"} Add a Step
+        = step_form.fields_for :resources do |resource_form|
+          = resource_form.text_field :name, placeholder: 'Resource Name', id:'resource_name', class: 'form-control'
+          = resource_form.text_field :link, placeholder: 'Resource Link', id:'resource_link', class: 'form-control'
+          = resource_form.text_area :description, placeholder: 'Resource Description', id:'resource_description', class: 'form-control'
+          = resource_form.text_area :full_description, placeholder: 'Resource Full Description', id:'resource_full_description', class: 'form-control'
+          = resource_form.text_field :source, placeholder: 'Resource Source', id:'resource_source', class: 'form-control'
+      = journey_form.submit 'Save', class: "btn btn-default", id: 'add_journey'
+

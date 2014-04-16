@@ -74,7 +74,7 @@ class StepsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def step_params
-      params.require(:step).permit(:name, :description, :journey_id)
+      params.require(:step).permit(:name, :description, :journey_id, resources_attributes: [:name])
     end
 
     def load_journey

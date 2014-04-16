@@ -4,6 +4,8 @@ class Step < ActiveRecord::Base
   belongs_to :journey
   validates :name, presence: true
 
+  accepts_nested_attributes_for :resources
+
   def add_resource(resource)
     self.resources.push(resource)
   end

@@ -4,6 +4,8 @@ class JourneysController < ApplicationController
 
   def new
     @journey = Journey.new
+    @steps = @journey.steps.build
+    @steps.resources.build
     @value_proposition_id = params[:value_proposition_id]
   end
 
@@ -37,7 +39,10 @@ class JourneysController < ApplicationController
   private
 
   def journey_params
-    params.require(:journey).permit(:title, :value_proposition_id)
+    params.require(:journey).permit(:title, :value_proposition_id, 
+                                    steps_attributes: [:name, :description], 
+                                    resources_attributes: [:name, :link, :description, 
+                                                           :full_description, :source])
   end
 
   def load_value_proposition
