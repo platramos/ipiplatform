@@ -2,6 +2,11 @@ $('document').ready(function() {
   $('#step-form').hide();
 
   $('#step-btn').click(function(){
-    $('#step-form').slideDown("slow");
+    if($('#step-form').is(':hidden')){
+      $('#step-form').slideDown('slow');
+    }
+    else{
+      $('#step-form').slideUp('slow');
+    }
   });
 });
