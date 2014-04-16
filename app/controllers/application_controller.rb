@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_filter :store_location
-  before_action :redirect_if_not_authorized_by_okta
+#  before_action :redirect_if_not_authorized_by_okta
 
   def redirect_if_not_authorized_by_okta
     if !okta_user
