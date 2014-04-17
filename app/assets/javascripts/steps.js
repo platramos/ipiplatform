@@ -1,24 +1,33 @@
 $('document').ready(function() {
-  $('#step-form').hide();
-  $('#resource-btn').hide();
+  var $stepForm = $('#step-form');
+  var $resourceBtn = $('#resource-btn');
+  var $stepBtn = $('#step-btn');
+  var $resourceForm = $('#resource-form');
+  var $addAnotherStep = $('#add-another-step');
 
-  $('#step-btn').click(function(){
-    if($('#step-form').is(':hidden')){
-      $('#step-form').slideDown('slow');
-      $('#resource-btn').slideDown('slow');
-      $('#step-btn').text('Done Adding Step');
+
+  $stepForm.hide();
+  $resourceBtn.hide();
+
+  $stepBtn.click(function(){
+    if($stepForm.is(':hidden')){
+      $stepForm.slideDown('slow');
+      $resourceBtn.slideDown('slow');
+      $stepBtn.text('Done Adding Step');
     }
     else{
-      $('#step-form').slideUp('slow');
-      $('#resource-btn').slideUp('slow');
-      $('#resource-form').slideUp('slow');
-      $('#step-btn').text('Edit Step');
+      $stepForm.slideUp('slow');
+      $resourceBtn.slideUp('slow');
+      $resourceForm.slideUp('slow');
+      $stepBtn.text('Edit Step');
     }
   });
 
-  $('.add-new-step').click(function(){
-    var stepForm = $('.add-step').clone();
-    $('#step-btn').after(stepForm);
+    id = 0;
+  $addAnotherStep.click(function(){
+    var stepForm = $('#step-form.add-step').clone().attr('id', "step-form-" + id);
+    $addAnotherStep.before(stepForm);
+    id++;
   });
 });
 

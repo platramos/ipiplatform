@@ -1,14 +1,17 @@
 $('document').ready(function() {
-  $('#resource-form').hide();
+  var $resourceBtn = $('#resource-btn');
+  var $resourceForm = $('#resource-form');
 
-  $('#resource-btn').click(function(){
-    if($('#resource-form').is(':hidden')){
-      $('#resource-form').slideDown('slow');
-      $('#resource-btn').text('Done Adding Resource');
+  $resourceForm.hide();
+
+  $resourceBtn.click(function(){
+    if($resourceForm.is(':hidden')){
+      $resourceForm.slideDown('slow');
+      $resourceBtn.text('Done Adding Resource');
     }
     else{
-      $('#resource-form').slideUp('slow');
-      $('#resource-btn').text('Edit Resource');
+      $resourceForm.slideUp('slow');
+      $resourceBtn.text('Edit Resource');
     }
   });
 });
