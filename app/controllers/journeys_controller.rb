@@ -11,7 +11,8 @@ class JourneysController < ApplicationController
 
   def create
     @journey = @value_proposition.journeys.new(journey_params)
-    #@steps = @journey.steps.new(step_params)
+   # @steps = @journey.steps.new
+   # @steps.resources.new
     #@journey.steps.each do |step|
    #   @step = step.new(step_params)
    # end

@@ -42,7 +42,7 @@ describe ResourcesController do
 
           @resource = Resource.all.first
 
-          expect(Resource.all.count).to eql(1)
+          expect(Resource.all.count).to eql( 1 )
           expect(@resource.name).to eql @name
           expect(@resource.link).to eql 'resource_link'
           expect(@resource.description).to eql @description
