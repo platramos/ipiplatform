@@ -8,7 +8,9 @@ class Resource < ActiveRecord::Base
   has_many :users, through: :bookmarks
 
   belongs_to :user
-  has_and_belongs_to_many :steps
+
+  has_many :step_resources
+  has_many :steps, through: :step_resources
 
   has_many :comments
   has_many :users, through: :comments

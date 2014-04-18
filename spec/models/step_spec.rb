@@ -12,7 +12,8 @@ describe Step do
     it { should belong_to(:journey) }
 
     it 'should have and belong to many resources' do
-      Step.reflect_on_association(:resources).macro.should == :has_and_belongs_to_many
+      #Step.reflect_on_association(:resources).macro.should == :has_and_belongs_to_many
+      Step.reflect_on_association(:step_resources).macro.should == :has_many
     end
   end
 
