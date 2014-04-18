@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe JourneysController do
   let(:mock_journey) { mock_model(Journey, id: "0", title: "JourneyTitle", value_proposition_id: "0") }
+  let(:mock_step) { mock_model(Step, id: "0", name: "StepName", journey_id: "0")}
+  let(:new_mock_journey) {mock_model(Journey, id: "0")}
+  let(:new_mock_steps) {mock_model(Step, id: "0")}
+  let(:new_mock_resources) {mock_model(Resource, id: "0")}
   let(:mock_value_proposition) { mock_model(ValueProposition, name: "VpName", description: "description", value_proposition_category: "category")}
   let(:value_proposition_id) { "0" }
   let(:valid_attributes) { { "title"=> "JourneyTitle", "value_proposition_id"=> value_proposition_id } }
@@ -45,13 +49,21 @@ describe JourneysController do
 
   describe "GET new" do
     it "loads a new journey" do
-      Journey.should_receive(:new)
+      Journey.should_receive(:new).and_return(new_mock_journey)
+      new_mock_journey.stub_chain(:steps, :build).and_return(new_mock_steps)
+      new_mock_steps.should_receive(:resources).and_return(new_mock_resources)
+      new_mock_resources.should_receive(:build)
       get :new, { value_proposition_id: value_proposition_id}
     end
 
     it "assigns @journey to new journey" do
       get :new, { value_proposition_id: value_proposition_id}
       assigns(:journey).should be_a_new(Journey)
+    end
+
+    it "assings @steps to new journey steps" do
+      get :new, { value_proposition_id: value_proposition_id}
+      assigns(:steps).should be_a_new(Step)
     end
 
     it "loads the value proposition id" do

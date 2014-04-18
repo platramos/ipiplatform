@@ -11,7 +11,10 @@ class JourneysController < ApplicationController
 
   def create
     @journey = @value_proposition.journeys.new(journey_params)
-
+    #@steps = @journey.steps.new(step_params)
+    #@journey.steps.each do |step|
+   #   @step = step.new(step_params)
+   # end
     if @journey.save
       redirect_to edit_value_proposition_path(params[:value_proposition_id]), notice: 'Journey was successfully created'
     else
@@ -39,10 +42,10 @@ class JourneysController < ApplicationController
   private
 
   def journey_params
-    params.require(:journey).permit(:title, :value_proposition_id, 
-                                    steps_attributes: [:name, :description], 
-                                    resources_attributes: [:name, :link, :description, 
-                                                           :full_description, :source])
+    params.require(:journey).permit(:title, :value_proposition_id,
+                  steps_attributes: [:name, :description,
+                  resources_attributes: [:name, :link, :description,
+                  :full_description, :source, :user_id]])
   end
 
   def load_value_proposition
